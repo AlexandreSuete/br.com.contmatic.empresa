@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------
+Test set: br.com.contmatic.empresa.AtividadeTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.046 sec <<< FAILURE!
+br.com.contmatic.empresa.AtividadeTest.testar_codigo_de_atividade_secundaria()  Time elapsed: 0.043 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown ==> expected: <java.lang.IllegalArgumentException> but was: <java.lang.NullPointerException>
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:65)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:37)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:2920)
+	at br.com.contmatic.empresa.AtividadeTest.codigo_de_atividade_secundaria_nao_deve_ser_nulo(AtividadeTest.java:67)
+	at br.com.contmatic.empresa.AtividadeTest.testar_codigo_de_atividade_secundaria(AtividadeTest.java:37)
+Caused by: java.lang.NullPointerException
+	at br.com.contmatic.empresa.AtividadeTest.lambda$codigo_de_atividade_secundaria_nao_deve_ser_nulo$4(AtividadeTest.java:68)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:55)
+	... 20 more
+
+br.com.contmatic.empresa.AtividadeTest.testar_codigo_de_atividade()  Time elapsed: 0.001 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown ==> expected: <java.lang.IllegalArgumentException> but was: <java.lang.NullPointerException>
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:65)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:37)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:2920)
+	at br.com.contmatic.empresa.AtividadeTest.codigo_de_atividade_nao_deve_ser_nulo(AtividadeTest.java:43)
+	at br.com.contmatic.empresa.AtividadeTest.testar_codigo_de_atividade(AtividadeTest.java:30)
+Caused by: java.lang.NullPointerException
+	at br.com.contmatic.empresa.AtividadeTest.lambda$codigo_de_atividade_nao_deve_ser_nulo$0(AtividadeTest.java:44)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:55)
+	... 20 more
+

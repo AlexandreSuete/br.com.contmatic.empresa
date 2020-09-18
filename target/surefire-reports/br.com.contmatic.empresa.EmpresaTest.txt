@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------
+Test set: br.com.contmatic.empresa.EmpresaTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0 sec <<< FAILURE!
+br.com.contmatic.empresa.EmpresaTest.testar_cnpj()  Time elapsed: 0 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown ==> expected: <java.lang.IllegalArgumentException> but was: <java.lang.NullPointerException>
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:65)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:37)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:2920)
+	at br.com.contmatic.empresa.EmpresaTest.nao_deve_aceitar_cnpj_nulo(EmpresaTest.java:80)
+	at br.com.contmatic.empresa.EmpresaTest.testar_cnpj(EmpresaTest.java:31)
+Caused by: java.lang.NullPointerException
+	at br.com.contmatic.empresa.EmpresaTest.lambda$4(EmpresaTest.java:81)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:55)
+	... 22 more
+
+br.com.contmatic.empresa.EmpresaTest.testar_codigo_de_natureza_juridica()  Time elapsed: 0 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown ==> expected: <java.lang.IllegalArgumentException> but was: <java.lang.NullPointerException>
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:65)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:37)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:2920)
+	at br.com.contmatic.empresa.EmpresaTest.natureza_juridica_nao_deve_ser_nula(EmpresaTest.java:122)
+	at br.com.contmatic.empresa.EmpresaTest.testar_codigo_de_natureza_juridica(EmpresaTest.java:41)
+Caused by: java.lang.NullPointerException
+	at br.com.contmatic.empresa.EmpresaTest.lambda$11(EmpresaTest.java:123)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:55)
+	... 22 more
+

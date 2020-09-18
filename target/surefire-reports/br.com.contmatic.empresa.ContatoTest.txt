@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------
+Test set: br.com.contmatic.empresa.ContatoTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec <<< FAILURE!
+br.com.contmatic.empresa.ContatoTest.testar_telefone()  Time elapsed: 0.002 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown ==> expected: <java.lang.IllegalArgumentException> but was: <java.lang.NullPointerException>
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:65)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:37)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:2920)
+	at br.com.contmatic.empresa.ContatoTest.telefone_da_empresa_nao_deve_ser_nulo(ContatoTest.java:55)
+	at br.com.contmatic.empresa.ContatoTest.testar_telefone(ContatoTest.java:31)
+Caused by: java.lang.NullPointerException
+	at br.com.contmatic.empresa.ContatoTest.lambda$telefone_da_empresa_nao_deve_ser_nulo$2(ContatoTest.java:56)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:55)
+	... 20 more
+
+br.com.contmatic.empresa.ContatoTest.testar_email()  Time elapsed: 0 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown ==> expected: <java.lang.IllegalArgumentException> but was: <java.lang.NullPointerException>
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:65)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:37)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:2920)
+	at br.com.contmatic.empresa.ContatoTest.email_da_empresa_nao_deve_ser_nulo(ContatoTest.java:43)
+	at br.com.contmatic.empresa.ContatoTest.testar_email(ContatoTest.java:38)
+Caused by: java.lang.NullPointerException
+	at br.com.contmatic.empresa.ContatoTest.lambda$email_da_empresa_nao_deve_ser_nulo$0(ContatoTest.java:44)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:55)
+	... 20 more
+
