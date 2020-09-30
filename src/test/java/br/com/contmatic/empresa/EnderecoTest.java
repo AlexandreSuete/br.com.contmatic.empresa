@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 public class EnderecoTest {
 
 	Endereco endereco = null;
+	
+	Municipio municipio = new Municipio("SAO JOSE DOS CAMPOS", "SP");
 
 	@BeforeAll
 	public static void init() {
@@ -18,7 +20,7 @@ public class EnderecoTest {
 
 	@BeforeEach
 	public void initEach() {
-		endereco = new Endereco();
+		endereco = new Endereco("R MAJOR VAZ", 217, "",municipio, "VILA ADYANA","12243670");
 	}
 
 	@AfterAll

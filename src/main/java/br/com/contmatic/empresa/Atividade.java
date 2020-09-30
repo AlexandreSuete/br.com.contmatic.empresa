@@ -1,79 +1,118 @@
 package br.com.contmatic.empresa;
 
 import static br.com.contmatic.empresa.util.Constantes.*;
+import static br.com.contmatic.empresa.util.Datas.formatacaoDeData;
+import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
+
+import java.util.Date;
 
 public class Atividade {
 
 	private String codigo;
 
 	private String descricao;
-	
+
 	private Atividade secundario;
+	
+	private String usuario;
 
-	public Atividade() {
-	}
+	private Date dataAlteracao;
 
-	public Atividade(String codAtividade, String atividade, String codSubAtividade, String subAtividade) {
-		this.codigo = codAtividade;
-		this.descricao = atividade;
-		secundario = new Atividade();
+	private Date dataCadastro;
+
+	public Atividade(String codigo, String descricao) {
+		this.setCodigo(codigo);
+		this.setDescricao(descricao);
 	}
 
 	public String getCodAtividade() {
 		return codigo;
 	}
 
-	public void setCodAtividade(String codAtividade) {
-		this.codigoDeAtividadeDaEmpresaNaoDeveSerNulo(codAtividade);
-		this.codigoDeAtividadeDeveConter7Digitos(codAtividade);
-		this.codigoDeAtividadeNaoDeveConterLetras(codAtividade);
-		this.codigoDeAtividadeNaoDeveConterEspacosEmBranco(codAtividade);
+	public void setCodigo(String codigo) {
+		this.codigoDeAtividadeDaEmpresaNaoDeveSerNulo(codigo);
+		this.codigoDeAtividadeDeveConter7Digitos(codigo);
+		this.codigoDeAtividadeNaoDeveConterLetras(codigo);
+		this.codigoDeAtividadeNaoDeveConterEspacosEmBranco(codigo);
 
-		this.codigo = codAtividade;
+		this.codigo = codigo;
 	}
 
 	public String getAtividade() {
 		return descricao;
 	}
 
-	public void setAtividade(String atividade) {
-		this.atividadeDaEmpresaNaoDeveSerNula(atividade);
-		this.atividadeNaoDeveUltrapassarLimiteDeCaracteres(atividade);
-		this.descricao = atividade;
+	public void setDescricao(String descricao) {
+		this.atividadeDaEmpresaNaoDeveSerNula(descricao);
+		this.atividadeNaoDeveUltrapassarLimiteDeCaracteres(descricao);
+		this.descricao = descricao;
+	}
+	
+	public String getUsuario() {
+		return usuario;
 	}
 
-	private void codigoDeAtividadeNaoDeveConterLetras(String codAtividade) {
-		if (codAtividade.substring(CODIGO_INITI_LENGTH, CODIGO_ATIVIDADE).matches("[A-Z|a-z]*")) {
+	public void setUsuario(String usuario) {
+		usuarioNaoDeveSerNulo(usuario);
+		this.usuario = usuario;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(String dataAlteracao) {
+		validarIntervalo(formatacaoDeData(dataAlteracao));
+		this.dataAlteracao = formatacaoDeData(dataAlteracao);
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(String dataCadastro) {
+		validarIntervalo(formatacaoDeData(dataCadastro));
+		this.dataCadastro = formatacaoDeData(dataCadastro);
+	}
+
+	private void usuarioNaoDeveSerNulo(String usuario) {
+		if(usuario == null) {
+			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
+		}
+	}
+
+	private void codigoDeAtividadeNaoDeveConterLetras(String codigo) {
+		if (codigo.substring(CODIGO_INITI_LENGTH, CODIGO_ATIVIDADE).matches("[A-Z|a-z]*")) {
 			throw new IllegalArgumentException("O Codigo de Atividade da Empresa não pode conter letras");
 		}
 	}
-	
-	private void codigoDeAtividadeNaoDeveConterEspacosEmBranco(String codAtividade) {
-		if (codAtividade.substring(CODIGO_INITI_LENGTH, CODIGO_ATIVIDADE).matches(" ")) {
+
+	private void codigoDeAtividadeNaoDeveConterEspacosEmBranco(String codigo) {
+		if (codigo.substring(CODIGO_INITI_LENGTH, CODIGO_ATIVIDADE).matches(" ")) {
 			throw new IllegalArgumentException("O Codigo de Atividade da Empresa não pode conter espaços em branco");
 		}
 	}
 
-	private void atividadeDaEmpresaNaoDeveSerNula(String atividade) {
-		if (atividade == null) {
+	private void atividadeDaEmpresaNaoDeveSerNula(String descricao) {
+		if (descricao == null) {
 			throw new IllegalArgumentException("A Atividade exercida pela empresa não deve ser nula");
 		}
 	}
 
-	private void codigoDeAtividadeDaEmpresaNaoDeveSerNulo(String codAtividade) {
-		if (codAtividade == null) {
+	private void codigoDeAtividadeDaEmpresaNaoDeveSerNulo(String codigo) {
+		if (codigo == null) {
 			throw new IllegalArgumentException("O Codigo Da Atividade exercida pela empresa não pode ser nulo");
 		}
 	}
 
-	private void codigoDeAtividadeDeveConter7Digitos(String codAtividade) {
-		if (codAtividade.length() != CODIGO_ATIVIDADE_LENGTH) {
+	private void codigoDeAtividadeDeveConter7Digitos(String descricao) {
+		if (descricao.length() != CODIGO_ATIVIDADE_LENGTH) {
 			throw new IllegalArgumentException("O Codigo de Atividade da empresa deve conter 7 digitos");
 		}
 	}
-	
-	private void atividadeNaoDeveUltrapassarLimiteDeCaracteres(String atividade) {
-		if(atividade.length()>STRING_MAX_LENGTH){
+
+	private void atividadeNaoDeveUltrapassarLimiteDeCaracteres(String descricao) {
+		if (descricao.length() > STRING_MAX_LENGTH) {
 			throw new IllegalArgumentException("A Atividade da Empresa não deve ultrapassar 255 digitos");
 		}
 	}
@@ -119,6 +158,5 @@ public class Atividade {
 	public String toString() {
 		return "Atividade [codigo=" + codigo + ", descricao=" + descricao + ", secundario=" + secundario + "]";
 	}
-
 
 }

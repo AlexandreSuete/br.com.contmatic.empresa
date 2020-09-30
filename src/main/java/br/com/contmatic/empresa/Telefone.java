@@ -1,20 +1,29 @@
 package br.com.contmatic.empresa;
 
+import static br.com.contmatic.empresa.util.Datas.definirData;
+import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
+
+import java.util.Date;
+
 public class Telefone {
-	
-	public Telefone() {}
-	
-	public Telefone(int ddi, int ddd, String telefone) {
-		this.ddi = ddi;
-		this.ddd = ddd;
-		this.telefone = telefone;
-	}
 
 	private int ddi;
 	
 	private int ddd;
 	
 	private String telefone;
+	
+	private String usuario;
+
+	private Date dataAlteracao;
+
+	private Date dataCadastro;
+	
+	public Telefone(int ddi, int ddd, String telefone) {
+		this.setDdi(ddi);
+		this.setDdd(ddd);
+		this.telefone = telefone;
+	}
 
 	public int getDdi() {
 		return ddi;
@@ -44,7 +53,34 @@ public class Telefone {
 		this.telefoneNaoDeveConterLetras(telefone);
 		this.telefone = telefone;
 	}
+	
+	public String getUsuario() {
+		return usuario;
+	}
 
+	public void setUsuario(String usuario) {
+		usuarioNaoDeveSerNulo(usuario);
+		this.usuario = usuario;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(int year, int month, int date) {
+		validarIntervalo(dataAlteracao);
+		this.dataAlteracao = definirData(year,month,date);
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(int year, int month, int date) {
+		validarIntervalo(dataCadastro);
+		this.dataCadastro = definirData(year,month,date);
+	}
+	
 	private void telefoneNaoDeveConterLetras(String telefone) {
 		if (telefone.substring(0, 9).matches("[A-Z|a-z]*")) {
 			throw new IllegalArgumentException("O Telefone não deve conter letras");
@@ -57,6 +93,12 @@ public class Telefone {
 		}
 	}
 	
+	private void usuarioNaoDeveSerNulo(String usuario) {
+		if(usuario == null) {
+			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
+		}
+	}
+
 	private void validarDDD(int ddd) {
 		if(ddd<11 || ddd>99) {
 			throw new IllegalArgumentException("O DDD digitado não é valido");
@@ -104,5 +146,4 @@ public class Telefone {
 	public String toString() {
 		return "Telefone [ddi=" + ddi + ", ddd=" + ddd + ", telefone=" + telefone + "]";
 	}
-
 }

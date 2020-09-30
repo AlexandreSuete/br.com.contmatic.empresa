@@ -18,7 +18,7 @@ public class TelefoneTest {
 
 	@BeforeEach
 	public void initEach() {
-		telefone = new Telefone();
+		telefone = new Telefone(55, 11, "29426700");
 	}
 
 	@AfterAll

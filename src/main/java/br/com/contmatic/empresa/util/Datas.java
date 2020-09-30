@@ -1,18 +1,24 @@
 package br.com.contmatic.empresa.util;
 
-import static br.com.contmatic.empresa.util.Constantes.DAY_MAX;
-import static br.com.contmatic.empresa.util.Constantes.MONTH_MAX;
-import static br.com.contmatic.empresa.util.Constantes.YEAR_MAX;
-import static br.com.contmatic.empresa.util.Constantes.YEAR_MIN;
+import java.util.Calendar;
+import java.util.Date;
 
 public final class Datas {
 	
-	private Datas() {};
+	static Calendar c = Calendar.getInstance();
 	
-	public static void validarIntervalo(int dia, int mes, int ano) {
-		if (dia > DAY_MAX || mes > MONTH_MAX || ano > YEAR_MAX || ano < YEAR_MIN) {
-			throw new IllegalStateException("A data de informada deve ser valida");
+	public static void validarIntervalo(Date data) {
+		Date hoje = new Date();
+		if (data.getTime() > hoje.getTime()) {
+			throw new IllegalStateException("A data de informada não deve ser futura");
 		}
+	}
+	
+	public static Date definirData(int year, int month, int date) {
+		Date data;
+		c.set(year, month, date);
+		data = c.getTime();
+		return data;
 	}
 
 }

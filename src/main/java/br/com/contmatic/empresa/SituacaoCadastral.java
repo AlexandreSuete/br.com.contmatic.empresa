@@ -1,7 +1,11 @@
 package br.com.contmatic.empresa;
 
 import static br.com.contmatic.empresa.util.Constantes.STRING_MAX_LENGTH;
+import static br.com.contmatic.empresa.util.Datas.formatacaoDeData;
 import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SituacaoCadastral {
 	
@@ -9,24 +13,29 @@ public class SituacaoCadastral {
 	
 	private String status;
 	
-	private String data;
+	private Date data;
 	
-	public SituacaoCadastral() {}
+	private String usuario;
+
+	private Date dataAlteracao;
+
+	private Date dataCadastro;
 	
-	public SituacaoCadastral(String motivoSitCadastral, String situacaoCadastral, String dataSituacaoCadastral) {
-		this.motivo = motivoSitCadastral;
-		this.status = situacaoCadastral;
-		this.data = dataSituacaoCadastral;
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	
+	public SituacaoCadastral(String motivo, String status, String data) {
+		this.setMotivo(motivo);
+		this.setStatus(status);
+		this.setData (data);
 	}
 
-	public String getDataSituacaoCadastral() {
+	public Date getDataSituacaoCadastral() {
 		return data;
 	}
 
-	public void setData(int dia, int mes, int ano) {
-		validarIntervalo(dia, mes, ano);
-		String data = dia + "/" + mes + "/" + ano;
-		this.data = data;
+	public void setData(String data) {
+		validarIntervalo(formatacaoDeData(data));
+		this.data = formatacaoDeData(data);
 	}
 
 	public String getStatus() {
@@ -34,8 +43,8 @@ public class SituacaoCadastral {
 	}
 
 	public void setStatus(String status) {
-		this.situacaoCadastralNaoDeveUltrapassarLimiteDeCaracteres();
-		this.situacaoCadastralNaoDeveSerNula(status);
+		this.statusNaoDeveSerNulo(status);
+		this.statusNaoDeveUltrapassarOLimiteDeCaracteres(status);
 		this.status = status;
 	}
 	
@@ -44,38 +53,101 @@ public class SituacaoCadastral {
 	}
 
 	public void setMotivo(String motivo) {
-		this.motivoSituacaoCadastralNaoDeveUltrapassarLimiteDeCaracteres(motivo);
-		this.motivoSituacaoCadastralNaoDeveSerNulo(motivo);
+		this.motivoNaoDeveSerNulo(motivo);
+		this.motivoNaoDeveUltrapassarLimiteDeCaracteres(motivo);
 		this.motivo = motivo;
 	}
 	
-	private void situacaoCadastralNaoDeveSerNula(String situacaoCadastral) {
-		if(situacaoCadastral == null) {
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		usuarioNaoDeveSerNulo(usuario);
+		this.usuario = usuario;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(String dataAlteracao) {
+		validarIntervalo(formatacaoDeData(dataAlteracao));
+		this.dataAlteracao = formatacaoDeData(dataAlteracao);
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(String dataCadastro) {
+		validarIntervalo(formatacaoDeData(dataCadastro));
+		this.dataCadastro = formatacaoDeData(dataCadastro);
+	}
+	
+	private void usuarioNaoDeveSerNulo(String usuario) {
+		if(usuario == null) {
+			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
+		}
+	}
+
+	private void statusNaoDeveSerNulo(String status) {
+		if(status == null) {
 			throw new IllegalArgumentException("A Situação Cadastral não deve ser nula");
 		}
 	}
 	
-	private void motivoSituacaoCadastralNaoDeveUltrapassarLimiteDeCaracteres(String motivoSitCadastral) {
-		if (motivoSitCadastral.length() > STRING_MAX_LENGTH) {
+	private void motivoNaoDeveUltrapassarLimiteDeCaracteres(String motivo) {
+		if (motivo.length() > STRING_MAX_LENGTH) {
 			throw new IllegalArgumentException("O Motivo da Situação Cadastral não deve ultrapassar 255 caracteres");
 		}
 	}
 	
-	private void motivoSituacaoCadastralNaoDeveSerNulo(String motivoSitCadastral) {
-		if(motivoSitCadastral == null) {
+	private void motivoNaoDeveSerNulo(String motivo) {
+		if(motivo == null) {
 			throw new IllegalArgumentException("O Motivo da Situação Cadastral não deve ser nulo");
 		}
 	}
 	
-	private void situacaoCadastralNaoDeveUltrapassarLimiteDeCaracteres() {
+	private void statusNaoDeveUltrapassarOLimiteDeCaracteres(String status) {
 		if (status.length() > STRING_MAX_LENGTH) {
 			throw new IllegalArgumentException("A Situação Cadastral não deve ultrapassar 255 caracteres");
 		}
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((motivo == null) ? 0 : motivo.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SituacaoCadastral other = (SituacaoCadastral) obj;
+		if (motivo == null) {
+			if (other.motivo != null)
+				return false;
+		} else if (!motivo.equals(other.motivo))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		return "SituacaoCadastral [motivo=" + motivo + ", status=" + status + ", data=" + data + "]";
 	}
-
 }

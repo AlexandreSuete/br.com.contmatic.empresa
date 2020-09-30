@@ -1,5 +1,7 @@
 package br.com.contmatic.empresa;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.concurrent.TimeUnit;
@@ -11,10 +13,24 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
-
 public class EmpresaTest {
-	
+	String dataAbertura = "21/11/2002";
+
+	String dataSitCadastral = "26/06/2004";
+
 	Empresa empresa = null;
+
+	Telefone telefone = new Telefone(55, 11, "29426700");
+
+	Contato contato = new Contato("FINANCEIRO@CONTMATIC.COM.BR", telefone);
+
+	Municipio municipio = new Municipio("SAO JOSE DOS CAMPOS", "SP");
+
+	Endereco endereco = new Endereco("R MAJOR VAZ", municipio, "VILA ADYANA", "12243670");
+
+	Atividade atividade = new Atividade("6203100","Desenvolvimento e licenciamento de programas de computador não-customizáveis");
+
+	SituacaoCadastral situacaoCadastral = null;
 
 	@BeforeAll
 	public static void init() {
@@ -23,7 +39,9 @@ public class EmpresaTest {
 
 	@BeforeEach
 	public void initEach() {
-		empresa = new Empresa();
+		empresa = new Empresa("58119371000410", "SOFTMATIC SISTEMAS AUTOMATICOS DE INFORMATICA LTDA",
+				"CONTMATIC PHOENIX", "2062", "Sociedade Empresária Limitada", "DEMAIS", dataAbertura, contato, endereco,
+				atividade, situacaoCadastral = new SituacaoCadastral("", "ATIVA", dataSitCadastral));
 	}
 
 	@AfterAll
@@ -69,17 +87,23 @@ public class EmpresaTest {
 			empresa.setRazaoSocial(null);
 		});
 	}
-	
+
 	@Disabled
 	@Test
 	public void banco_de_dados_deve_ser_acessado_com_sucesso() {
-		
+
 	}
-	
+
 	private void cnpj_nao_deve_conter_espacos() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			empresa.setCnpj("          ");
 		});
+	}
+	
+	@Test
+	public void deve_aceitar_empresa_valida() {
+		assertEquals("58119371000410", empresa.getCnpj());
+		assertNotNull(empresa.getContato());
 	}
 
 	private void nao_deve_aceitar_cnpj_nulo() {

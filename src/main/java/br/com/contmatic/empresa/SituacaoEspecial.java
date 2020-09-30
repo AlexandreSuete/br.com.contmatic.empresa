@@ -1,45 +1,92 @@
 package br.com.contmatic.empresa;
 
+import static br.com.contmatic.empresa.util.Datas.definirData;
 import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class SituacaoEspecial {
-	
-	public SituacaoEspecial() {}
-	
-	public SituacaoEspecial(String sitEspecial, String dataSitEspecial) {
-		super();
-		this.sitEspecial = sitEspecial;
-		this.dataSitEspecial = dataSitEspecial;
+
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+	public SituacaoEspecial(String status, String data) {
+		this.setStatus(status);
+		this.setData(data);
 	}
 
-	private String sitEspecial;
+	private String status;
+
+	private Date data;
 	
-	private String dataSitEspecial;
-	
+	private String usuario;
+
+	private Date dataAlteracao;
+
+	private Date dataCadastro;
+
 	public String getSitEspecial() {
-		return sitEspecial;
+		return status;
 	}
 
-	public void setSitEspecial(String sitEspecial) {
-		this.sitEspecial = sitEspecial;
+	public void setStatus(String status) {
+		this.statusNaoDeveSerNulo(status);
+		this.status = status;
 	}
 
-	public String getDataSitEspecial() {
-		return dataSitEspecial;
+	public Date getData() {
+		return data;
 	}
 
-	public void setDataSitEspecial(int dia, int mes, int ano) {
-		validarIntervalo(dia, mes, ano);
-		String dataSitEspecial = dia + "/" + mes + "/" + ano;
-		this.dataSitEspecial = dataSitEspecial;
+	public void setData(int year, int month, int date) {
+		validarIntervalo(definirData(year,month,date));
+		this.data = definirData(year,month,date);
+	}
+	
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		usuarioNaoDeveSerNulo(usuario);
+		this.usuario = usuario;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(int year, int month, int date) {
+		validarIntervalo(dataAlteracao);
+		this.dataAlteracao = definirData(year,month,date);
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(int year, int month, int date) {
+		validarIntervalo(dataCadastro);
+		this.dataCadastro = definirData(year,month,date);
+	}
+	
+	private void usuarioNaoDeveSerNulo(String usuario) {
+		if(usuario == null) {
+			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
+		}
+	}
+
+	private void statusNaoDeveSerNulo(String status) {
+		if (status == null) {
+			throw new IllegalArgumentException("Situação especial não deve ser nula");
+		}
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((dataSitEspecial == null) ? 0 : dataSitEspecial.hashCode());
-		result = prime * result + ((sitEspecial == null) ? 0 : sitEspecial.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
 
@@ -52,22 +99,16 @@ public class SituacaoEspecial {
 		if (getClass() != obj.getClass())
 			return false;
 		SituacaoEspecial other = (SituacaoEspecial) obj;
-		if (dataSitEspecial == null) {
-			if (other.dataSitEspecial != null)
+		if (status == null) {
+			if (other.status != null)
 				return false;
-		} else if (!dataSitEspecial.equals(other.dataSitEspecial))
-			return false;
-		if (sitEspecial == null) {
-			if (other.sitEspecial != null)
-				return false;
-		} else if (!sitEspecial.equals(other.sitEspecial))
+		} else if (!status.equals(other.status))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "SituacaoEspecial [sitEspecial=" + sitEspecial + ", dataSitEspecial=" + dataSitEspecial + "]";
+		return "SituacaoEspecial [SituaçãoEspecial=" + status + ", DataSituaçãoEspecial=" + data + "]";
 	}
-	
 }

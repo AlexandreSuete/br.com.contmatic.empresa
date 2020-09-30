@@ -1,7 +1,10 @@
 package br.com.contmatic.empresa;
 
 import static br.com.contmatic.empresa.util.Constantes.*;
+import static br.com.contmatic.empresa.util.Datas.definirData;
 import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
+
+import java.util.Date;
 
 public class Empresa {
 
@@ -17,7 +20,7 @@ public class Empresa {
 
 	private String porte;
 
-	private String dataAbertura;
+	private Date dataAbertura;
 
 	private String enteFederativo;
 
@@ -26,38 +29,34 @@ public class Empresa {
 	private Endereco endereco;
 
 	private Atividade atividade;
-	
+
 	private SituacaoCadastral situacaoCadastral;
-	
+
 	private SituacaoEspecial situacaoEspecial;
-	
+
 	private String usuario;
-	
-	private String dataAlteracao;
-	
-	private String dataCadastro;
-	
+
+	private Date dataAlteracao;
+
+	private Date dataCadastro;
+
 	private String ip;
-	
-	public Empresa () {}
-	
+
 	public Empresa(String cnpj, String razaoSocial, String nomeFantasia, String codNatJuridica, String natJuridica,
-			String porte, String dataAbertura, Contato contato, Endereco endereco, Atividade atividade,
-			SituacaoCadastral situacaoCadastral, String usuario, String dataCadastro, String ip) {
-		this.cnpj = cnpj;
-		this.razaoSocial = razaoSocial;
-		this.nomeFantasia = nomeFantasia;
-		this.codNatJuridica = codNatJuridica;
-		this.natJuridica = natJuridica;
-		this.porte = porte;
-		this.dataAbertura = dataAbertura;
-		this.contato = contato;
-		this.endereco = endereco;
-		this.atividade = atividade;
-		this.situacaoCadastral = situacaoCadastral;
-		this.usuario = usuario;
-		this.dataCadastro = dataCadastro;
-		this.ip = ip;
+			String porte, int year, int month, int date, Contato contato, Endereco endereco, Atividade atividade,
+			SituacaoCadastral situacaoCadastral) {
+		this.setCnpj(cnpj);
+		
+		this.setRazaoSocial(razaoSocial);
+		this.setNomeFantasia(nomeFantasia);
+		this.setCodNatJuridica(codNatJuridica);
+		this.setNatJuridica(natJuridica);
+		this.setPorte(porte);
+		this.setDataAbertura(year,month,date);
+		this.setContato(contato);
+		this.setEndereco(endereco);
+		this.setAtividade(atividade);
+		this.setSituacaoCadastral(situacaoCadastral);
 	}
 
 	public String getCnpj() {
@@ -124,14 +123,13 @@ public class Empresa {
 		this.porte = porte;
 	}
 
-	public String getDataAbertura() {
+	public Date getDataAbertura() {
 		return dataAbertura;
 	}
 
-	public void setDataAbertura(int dia, int mes, int ano) {
-		validarIntervalo(dia, mes, ano);
-		String dataAbertura = dia + "/" + mes + "/" + ano;
-		this.dataAbertura = dataAbertura;
+	public void setDataAbertura(int year, int month, int date) {
+		validarIntervalo(dataAbertura);
+		this.dataAbertura = definirData(year,month,date);
 	}
 
 	public String getEnteFederativo() {
@@ -169,7 +167,7 @@ public class Empresa {
 		this.atividadeDaEmpresaNaoDeveSerNula(atividade);
 		this.atividade = atividade;
 	}
-	
+
 	public SituacaoCadastral getSituacaoCadastral() {
 		return situacaoCadastral;
 	}
@@ -178,7 +176,7 @@ public class Empresa {
 		this.situacaoCadastralNaoDeveSerNula(situacaoCadastral);
 		this.situacaoCadastral = situacaoCadastral;
 	}
-	
+
 	public SituacaoEspecial getSituacaoEspecial() {
 		return situacaoEspecial;
 	}
@@ -193,23 +191,26 @@ public class Empresa {
 	}
 
 	public void setUsuario(String usuario) {
+		usuarioNaoDeveSerNulo(usuario);
 		this.usuario = usuario;
 	}
 
-	public String getDataAlteracao() {
+	public Date getDataAlteracao() {
 		return dataAlteracao;
 	}
 
-	public void setDataAlteracao(String dataAlteracao) {
-		this.dataAlteracao = dataAlteracao;
+	public void setDataAlteracao(int year, int month, int date) {
+		validarIntervalo(dataAlteracao);
+		this.dataAlteracao = definirData(year,month,date);
 	}
 
-	public String getDataCadastro() {
+	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(String dataCadastro) {
-		this.dataCadastro = dataCadastro;
+	public void setDataCadastro(int year, int month, int date) {
+		validarIntervalo(dataCadastro);
+		this.dataCadastro = definirData(year,month,date);
 	}
 
 	public String getIp() {
@@ -221,41 +222,47 @@ public class Empresa {
 	}
 
 	private void situacaoEspecialNaoDeveSerNula(SituacaoEspecial situacaoEspecial) {
-		if(situacaoEspecial == null) {
-			throw new IllegalArgumentException("A Situação Especial D a Empresa Não deve ser nula");
+		if (situacaoEspecial == null) {
+			throw new IllegalArgumentException("A Situação Especial Da Empresa Não deve ser nula");
+		}
+	}
+
+	private void usuarioNaoDeveSerNulo(String usuario) {
+		if(usuario == null) {
+			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
 		}
 	}
 
 	private void atividadeDaEmpresaNaoDeveSerNula(Atividade atividade) {
-		if(atividade == null) {
+		if (atividade == null) {
 			throw new IllegalArgumentException("A Atividade da Empresa Não deve ser nula");
 		}
 	}
-	
+
 	private void enderecoNaoDeveSerNulo(Endereco endereco) {
-		if(endereco == null) {
+		if (endereco == null) {
 			throw new IllegalArgumentException("O Endereço Da Empresa Não deve ser nulo");
 		}
 	}
-	
+
 	private void contatoNaoDeveSerNulo(Contato contato) {
-		if(contato == null) {
+		if (contato == null) {
 			throw new IllegalArgumentException("O Contato Da Empresa Não deve ser nula");
 		}
 	}
 
 	private void situacaoCadastralNaoDeveSerNula(SituacaoCadastral situacaoCadastral) {
-		if(situacaoCadastral == null) {
+		if (situacaoCadastral == null) {
 			throw new IllegalArgumentException("A Situação Cadastral Não deve ser nula");
 		}
 	}
 
 	private void cnpjNaoDeveConterEspacosEmBranco(String cnpj) {
 		if (cnpj.substring(INIT_LENGTH, CNPJ_LENGTH).matches(" ")) {
-			throw new IllegalArgumentException("O Codigo de Atividade Secundaria da Empresa não pode conter espaços em branco");
+			throw new IllegalArgumentException(
+					"O Codigo de Atividade Secundaria da Empresa não pode conter espaços em branco");
 		}
 	}
-
 
 	private void enteFederativoNaoDeveUltrapassarLimiteDeCaracteres(String enteFederativo) {
 		if (enteFederativo.length() > STRING_MAX_LENGTH) {
@@ -268,7 +275,7 @@ public class Empresa {
 			throw new IllegalArgumentException("A Natureza Juridica não deve ultrapassar 255 caracteres");
 		}
 	}
-	
+
 	private void naturezaJuridicaNaoDeveUltrapassarLimiteDeCaracteres(String natJuridica) {
 		if (natJuridica.length() > STRING_MAX_LENGTH) {
 			throw new IllegalArgumentException("A Natureza Juridica não deve ultrapassar 255 caracteres");
@@ -431,7 +438,7 @@ public class Empresa {
 	public String toString() {
 		return "Empresa [cnpj=" + cnpj + ", razaoSocial=" + razaoSocial + ", nomeFantasia=" + nomeFantasia
 				+ ", codNatJuridica=" + codNatJuridica + ", natJuridica=" + natJuridica + ", porte=" + porte
-				+  ", dataAbertura=" + dataAbertura + ", enteFederativo=" + enteFederativo + "]";			
+				+ ", dataAbertura=" + dataAbertura + ", enteFederativo=" + enteFederativo + "]";
 	}
 
 }

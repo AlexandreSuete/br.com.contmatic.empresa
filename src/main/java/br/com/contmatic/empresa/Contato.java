@@ -1,5 +1,9 @@
 package br.com.contmatic.empresa;
 
+import static br.com.contmatic.empresa.util.Datas.formatacaoDeData;
+import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
+
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,12 +13,15 @@ public class Contato {
 
 	private Telefone telefone;
 	
-	public Contato() {
-	}
+	private String usuario;
+
+	private Date dataAlteracao;
+
+	private Date dataCadastro;
 
 	public Contato(String email, Telefone telefone) {
-		this.email = email;
-		this.telefone = telefone;
+		this.setEmail(email);
+		this.setTelefone(telefone);
 	}
 
 	public String getEmail() {
@@ -25,6 +32,54 @@ public class Contato {
 		this.emailDaEmpresaNaoDeveSerNulo(email);
 		this.emailDaEmpresaDeveSerValido(email);
 		this.email = email;
+	}
+
+	public Telefone getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(Telefone telefone) {
+		this.telefoneNaoDeveSerNulo(telefone);
+		this.telefone = telefone;
+	}
+	
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		usuarioNaoDeveSerNulo(usuario);
+		this.usuario = usuario;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(String dataAlteracao) {
+		validarIntervalo(formatacaoDeData(dataAlteracao));
+		this.dataAlteracao = formatacaoDeData(dataAlteracao);
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(String dataCadastro) {
+		validarIntervalo(formatacaoDeData(dataCadastro));
+		this.dataCadastro = formatacaoDeData(dataCadastro);
+	}
+
+	private void usuarioNaoDeveSerNulo(String usuario) {
+		if(usuario == null) {
+			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
+		}
+	}
+
+	private void telefoneNaoDeveSerNulo(Telefone telefone) {
+		if(telefone == null) {
+			throw new IllegalArgumentException("Telefone da Empresa não deve ser nulo");
+		}
 	}
 
 	private void emailDaEmpresaNaoDeveSerNulo(String email) {

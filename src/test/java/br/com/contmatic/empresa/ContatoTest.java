@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 public class ContatoTest {
 
 	Contato contato = null;
+	
+	Telefone telefone = new Telefone(55,11,"29426700");
 
 	@BeforeAll
 	public static void init() {
@@ -18,7 +20,7 @@ public class ContatoTest {
 
 	@BeforeEach
 	public void initEach() {
-		contato = new Contato();
+		contato = new Contato("FINANCEIRO@CONTMATIC.COM.BR", telefone);
 	}
 
 	@AfterAll

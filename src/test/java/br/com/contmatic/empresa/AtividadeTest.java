@@ -17,7 +17,7 @@ public class AtividadeTest {
 
 	@BeforeEach
 	public void initEach() {
-		atividade = new Atividade();
+		atividade = new Atividade("6203100","Desenvolvimento e Licenciamento de programas de computador não-customizáveis");
 	}
 
 	@AfterAll
@@ -34,19 +34,19 @@ public class AtividadeTest {
 
 	private void codigo_de_atividade_nao_deve_ser_nulo() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			atividade.setCodAtividade("null");
+			atividade.setCodigo("null");
 		});
 	}
 
 	private void codigo_de_atividade_nao_deve_passar_de_7_digitos() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			atividade.setCodAtividade("123456789");
+			atividade.setCodigo("123456789");
 		});
 	}
 
 	private void nao_deve_aceitar_letras_no_codigo_de_atividade() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			atividade.setCodAtividade("ADGHUYT");
+			atividade.setCodigo("ADGHUYT");
 		});
 	}
 

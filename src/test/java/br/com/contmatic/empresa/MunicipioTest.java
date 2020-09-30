@@ -21,7 +21,7 @@ Municipio municipio = null;
 
 	@BeforeEach
 	public void initEach() {
-		municipio = new Municipio();
+		municipio = new Municipio("SAO JOSE DOS CAMPOS","SP");
 	}
 
 	@AfterAll

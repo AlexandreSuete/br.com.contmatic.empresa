@@ -1,6 +1,10 @@
 package br.com.contmatic.empresa;
 
 import static br.com.contmatic.empresa.util.Constantes.*;
+import static br.com.contmatic.empresa.util.Datas.formatacaoDeData;
+import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
+
+import java.util.Date;
 
 
 public class Endereco {
@@ -17,16 +21,18 @@ public class Endereco {
 
 	private String cep;
 	
-	public Endereco() {}
+	private String usuario;
 
-	public Endereco(String logradouro, int numLogradouro, String complemento, Municipio municipio, String bairro,
+	private Date dataAlteracao;
+
+	private Date dataCadastro;
+
+	public Endereco(String logradouro,Municipio municipio, String bairro,
 			String cep) {
-		this.logradouro = logradouro;
-		this.numLogradouro = numLogradouro;
-		this.complemento = complemento;
-		this.municipio = municipio;
-		this.bairro = bairro;
-		this.cep = cep;
+		this.setLogradouro(logradouro);
+		this.setMunicipio(municipio);
+		this.setBairro(bairro);
+		this.setCep(cep);
 	}
 
 	public String getCep() {
@@ -76,6 +82,47 @@ public class Endereco {
 		this.logradouro = logradouro;
 	}
 
+	public Municipio getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(Municipio municipio) {
+		this.municipio = municipio;
+	}
+	
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		usuarioNaoDeveSerNulo(usuario);
+		this.usuario = usuario;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(String dataAlteracao) {
+		validarIntervalo(formatacaoDeData(dataAlteracao));
+		this.dataAlteracao = formatacaoDeData(dataAlteracao);
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(String dataCadastro) {
+		validarIntervalo(formatacaoDeData(dataCadastro));
+		this.dataCadastro = formatacaoDeData(dataCadastro);
+	}
+
+	private void usuarioNaoDeveSerNulo(String usuario) {
+		if(usuario == null) {
+			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
+		}
+	}
+
 	private void logradouroTamanhoMaximo(String logradouro) {
 		if(logradouro.length()>255) {
 			throw new IllegalArgumentException("O logradouro não deve ultrapassar 255 caracteres abrevie se possivel");
@@ -117,7 +164,6 @@ public class Endereco {
 			throw new IllegalArgumentException("Cep da empresa não deve ser nulo");
 		}
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -126,7 +172,7 @@ public class Endereco {
 		result = prime * result + numLogradouro;
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -145,14 +191,10 @@ public class Endereco {
 			return false;
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Endereco [logradouro=" + logradouro + ", numLogradouro=" + numLogradouro + ", complemento="
 				+ complemento + ", municipio=" + municipio + ", bairro=" + bairro + ", cep=" + cep + "]";
 	}
-
-
-
-
 }
