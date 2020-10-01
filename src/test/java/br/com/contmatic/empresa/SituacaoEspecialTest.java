@@ -1,5 +1,6 @@
 package br.com.contmatic.empresa;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.text.ParseException;
@@ -13,11 +14,9 @@ import org.junit.jupiter.api.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SituacaoEspecialTest {
-	
+
 	SituacaoEspecial sitEspecial = null;
-	
-	String data = "23/09/2019";
-	
+
 	@BeforeAll
 	public static void init() {
 		System.out.println("Iniciando os Testes de Situação Especial");
@@ -25,14 +24,14 @@ public class SituacaoEspecialTest {
 
 	@BeforeEach
 	public void initEach() throws ParseException {
-		sitEspecial = new SituacaoEspecial("INATIVA",data);
+		sitEspecial = new SituacaoEspecial("INATIVA", 2019, 8, 23);
 	}
 
 	@AfterAll
 	public static void cleanUp() {
 		System.out.println("Finalizando os testes de Situação Especial");
 	}
-	
+
 	@Test
 	@Order(1)
 	public void situacao_especial_nao_deve_ser_nulo() {
@@ -40,12 +39,14 @@ public class SituacaoEspecialTest {
 			sitEspecial.setStatus(null);
 		});
 	}
-	
+
 	@Test
 	@Order(2)
-	public void data_situacao_especial_deve_ser_valida() {
-		assertThrows(IllegalStateException.class, () -> {
-			sitEspecial.setData("32/08/2023");
-		});
+	public void testar_dados_validos() {
+		this.deve_aceitar_status_valido();
+	}
+
+	private void deve_aceitar_status_valido() {
+		assertEquals("INATIVA", sitEspecial.getStatus());
 	}
 }

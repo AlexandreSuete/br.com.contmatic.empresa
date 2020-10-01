@@ -1,5 +1,6 @@
 package br.com.contmatic.empresa;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.AfterAll;
@@ -10,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class EnderecoTest {
 
 	Endereco endereco = null;
-	
+
 	Municipio municipio = new Municipio("SAO JOSE DOS CAMPOS", "SP");
 
 	@BeforeAll
@@ -20,12 +21,21 @@ public class EnderecoTest {
 
 	@BeforeEach
 	public void initEach() {
-		endereco = new Endereco("R MAJOR VAZ", 217, "",municipio, "VILA ADYANA","12243670");
+		endereco = new Endereco("R MAJOR VAZ", municipio, "VILA ADYANA", "12243670");
 	}
 
 	@AfterAll
 	public static void cleanUp() {
 		System.out.println("Finalizando os testes de Endereço");
+	}
+
+	@Test
+	public void testar_dados_validos() {
+		this.deve_aceitar_logradouro_valido();
+		this.deve_aceitar_num_logradouro_valido();
+		this.deve_aceitar_complemento_valido();
+		this.deve_aceitar_bairro_valido();
+		this.deve_aceitar_cep_valido();
 	}
 
 	@Test
@@ -78,6 +88,28 @@ public class EnderecoTest {
 			endereco.setNumLogradouro(10001);
 			;
 		});
+	}
+
+	private void deve_aceitar_logradouro_valido() {
+		assertEquals("R MAJOR VAZ", endereco.getLogradouro());
+	}
+
+	private void deve_aceitar_num_logradouro_valido() {
+		endereco.setNumLogradouro(217);
+		assertEquals(217, endereco.getNumLogradouro());
+	}
+
+	private void deve_aceitar_complemento_valido() {
+		endereco.setComplemento("Perto de uma padaria");
+		assertEquals("Perto de uma padaria", endereco.getComplemento());
+	}
+
+	private void deve_aceitar_bairro_valido() {
+		assertEquals("VILA ADYANA", endereco.getBairro());
+	}
+
+	private void deve_aceitar_cep_valido() {
+		assertEquals("12243670", endereco.getCep());
 	}
 
 }

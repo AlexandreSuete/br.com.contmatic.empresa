@@ -1,11 +1,10 @@
 package br.com.contmatic.empresa;
 
 import static br.com.contmatic.empresa.util.Constantes.*;
-import static br.com.contmatic.empresa.util.Datas.formatacaoDeData;
+import static br.com.contmatic.empresa.util.Datas.definirData;
 import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
 
 import java.util.Date;
-
 
 public class Endereco {
 
@@ -16,19 +15,18 @@ public class Endereco {
 	private String complemento;
 
 	private Municipio municipio;
-	
+
 	private String bairro;
 
 	private String cep;
-	
+
 	private String usuario;
 
 	private Date dataAlteracao;
 
 	private Date dataCadastro;
 
-	public Endereco(String logradouro,Municipio municipio, String bairro,
-			String cep) {
+	public Endereco(String logradouro, Municipio municipio, String bairro, String cep) {
 		this.setLogradouro(logradouro);
 		this.setMunicipio(municipio);
 		this.setBairro(bairro);
@@ -44,7 +42,7 @@ public class Endereco {
 		this.cepDeveConter8Digitos(cep);
 		this.cep = cep;
 	}
-	
+
 	public String getBairro() {
 		return bairro;
 	}
@@ -53,15 +51,15 @@ public class Endereco {
 		this.bairroNaoDeveSerNulo(bairro);
 		this.bairro = bairro;
 	}
-	
+
 	public String getComplemento() {
 		return complemento;
 	}
-	
+
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
-	
+
 	public int getNumLogradouro() {
 		return numLogradouro;
 	}
@@ -89,7 +87,7 @@ public class Endereco {
 	public void setMunicipio(Municipio municipio) {
 		this.municipio = municipio;
 	}
-	
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -103,28 +101,28 @@ public class Endereco {
 		return dataAlteracao;
 	}
 
-	public void setDataAlteracao(String dataAlteracao) {
-		validarIntervalo(formatacaoDeData(dataAlteracao));
-		this.dataAlteracao = formatacaoDeData(dataAlteracao);
+	public void setDataAlteracao(int year, int month, int date) {
+		validarIntervalo(dataAlteracao);
+		this.dataAlteracao = definirData(year, month, date);
 	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(String dataCadastro) {
-		validarIntervalo(formatacaoDeData(dataCadastro));
-		this.dataCadastro = formatacaoDeData(dataCadastro);
+	public void setDataCadastro(int year, int month, int date) {
+		validarIntervalo(dataCadastro);
+		this.dataCadastro = definirData(year, month, date);
 	}
 
 	private void usuarioNaoDeveSerNulo(String usuario) {
-		if(usuario == null) {
+		if (usuario == null) {
 			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
 		}
 	}
 
 	private void logradouroTamanhoMaximo(String logradouro) {
-		if(logradouro.length()>255) {
+		if (logradouro.length() > 255) {
 			throw new IllegalArgumentException("O logradouro não deve ultrapassar 255 caracteres abrevie se possivel");
 		}
 	}
@@ -140,30 +138,31 @@ public class Endereco {
 			throw new IllegalArgumentException("O numero do logradouro não deve ser negativo");
 		}
 	}
-	
+
 	private void numeroDoLogradouroNaoDeveUltrapassar6Digitos(int numLogradouro) {
 		if (numLogradouro > NUMBER_MAX) {
 			throw new IllegalArgumentException("O Numero do logradouro não deve passar de 6 digitos");
 		}
 	}
-	
+
 	private void bairroNaoDeveSerNulo(String bairro) {
-		if(bairro == null) {
+		if (bairro == null) {
 			throw new IllegalArgumentException("O Bairro não deve ser nulo");
 		}
 	}
-	
+
 	private void cepDeveConter8Digitos(String cep) {
-		if (cep.length()!=8){
+		if (cep.length() != 8) {
 			throw new IllegalArgumentException("O Numero CEP não deve passar de 8 digitos");
 		}
 	}
 
 	private void cepNaoDeveSerNulo(String cep) {
-		if(cep == null) {
+		if (cep == null) {
 			throw new IllegalArgumentException("Cep da empresa não deve ser nulo");
 		}
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -172,7 +171,7 @@ public class Endereco {
 		result = prime * result + numLogradouro;
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -191,7 +190,7 @@ public class Endereco {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Endereco [logradouro=" + logradouro + ", numLogradouro=" + numLogradouro + ", complemento="

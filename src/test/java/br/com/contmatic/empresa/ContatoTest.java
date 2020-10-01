@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 public class ContatoTest {
 
 	Contato contato = null;
-	
-	Telefone telefone = new Telefone(55,11,"29426700");
+
+	Telefone telefone = new Telefone(55, 11, "29426700");
 
 	@BeforeAll
 	public static void init() {

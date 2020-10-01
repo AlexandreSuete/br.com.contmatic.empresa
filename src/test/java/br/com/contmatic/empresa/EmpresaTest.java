@@ -1,7 +1,6 @@
 package br.com.contmatic.empresa;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.concurrent.TimeUnit;
@@ -14,9 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
 public class EmpresaTest {
-	String dataAbertura = "21/11/2002";
-
-	String dataSitCadastral = "26/06/2004";
 
 	Empresa empresa = null;
 
@@ -28,7 +24,8 @@ public class EmpresaTest {
 
 	Endereco endereco = new Endereco("R MAJOR VAZ", municipio, "VILA ADYANA", "12243670");
 
-	Atividade atividade = new Atividade("6203100","Desenvolvimento e licenciamento de programas de computador não-customizáveis");
+	Atividade atividade = new Atividade("6203100",
+			"Desenvolvimento e licenciamento de programas de computador não-customizáveis");
 
 	SituacaoCadastral situacaoCadastral = null;
 
@@ -40,13 +37,24 @@ public class EmpresaTest {
 	@BeforeEach
 	public void initEach() {
 		empresa = new Empresa("58119371000410", "SOFTMATIC SISTEMAS AUTOMATICOS DE INFORMATICA LTDA",
-				"CONTMATIC PHOENIX", "2062", "Sociedade Empresária Limitada", "DEMAIS", dataAbertura, contato, endereco,
-				atividade, situacaoCadastral = new SituacaoCadastral("", "ATIVA", dataSitCadastral));
+				"CONTMATIC PHOENIX", "2062", "Sociedade Empresária Limitada", "DEMAIS", 2002, 10, 21, contato, endereco,
+				atividade, situacaoCadastral = new SituacaoCadastral("", "ATIVA", 2004, 05, 26));
 	}
 
 	@AfterAll
 	public static void cleanUp() {
 		System.out.println("Finalizando os testes de Empresa");
+	}
+
+	@Test
+	public void testar_dados_validos() {
+		this.deve_aceitar_empresa_valida();
+		this.deve_aceitar_razao_social_valida();
+		this.deve_aceitar_nome_fantasia_valido();
+		this.deve_aceitar_codigo_de_nat_juridica_valido();
+		this.deve_aceitar_nat_juridica_valida();
+		this.deve_aceitar_porte_valido();
+		this.deve_aceitar_ente_federativo_valido();
 	}
 
 	@Test
@@ -94,16 +102,39 @@ public class EmpresaTest {
 
 	}
 
+	private void deve_aceitar_ente_federativo_valido() {
+		empresa.setEnteFederativo("Henrique Teste Nogueira");
+		assertEquals("Henrique Teste Nogueira", empresa.getEnteFederativo());
+	}
+
+	private void deve_aceitar_empresa_valida() {
+		assertEquals("58119371000410", empresa.getCnpj());
+	}
+
+	private void deve_aceitar_nome_fantasia_valido() {
+		assertEquals("CONTMATIC PHOENIX", empresa.getNomeFantasia());
+	}
+
+	private void deve_aceitar_razao_social_valida() {
+		assertEquals("SOFTMATIC SISTEMAS AUTOMATICOS DE INFORMATICA LTDA", empresa.getRazaoSocial());
+	}
+
+	private void deve_aceitar_codigo_de_nat_juridica_valido() {
+		assertEquals("2062", empresa.getCodNatJuridica());
+	}
+
+	private void deve_aceitar_nat_juridica_valida() {
+		assertEquals("Sociedade Empresária Limitada", empresa.getNatJuridica());
+	}
+
+	private void deve_aceitar_porte_valido() {
+		assertEquals("DEMAIS", empresa.getPorte());
+	}
+
 	private void cnpj_nao_deve_conter_espacos() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			empresa.setCnpj("          ");
 		});
-	}
-	
-	@Test
-	public void deve_aceitar_empresa_valida() {
-		assertEquals("58119371000410", empresa.getCnpj());
-		assertNotNull(empresa.getContato());
 	}
 
 	private void nao_deve_aceitar_cnpj_nulo() {

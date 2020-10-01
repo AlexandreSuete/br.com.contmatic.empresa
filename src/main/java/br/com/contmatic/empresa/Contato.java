@@ -1,6 +1,6 @@
 package br.com.contmatic.empresa;
 
-import static br.com.contmatic.empresa.util.Datas.formatacaoDeData;
+import static br.com.contmatic.empresa.util.Datas.definirData;
 import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
 
 import java.util.Date;
@@ -12,7 +12,7 @@ public class Contato {
 	private String email;
 
 	private Telefone telefone;
-	
+
 	private String usuario;
 
 	private Date dataAlteracao;
@@ -42,7 +42,7 @@ public class Contato {
 		this.telefoneNaoDeveSerNulo(telefone);
 		this.telefone = telefone;
 	}
-	
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -56,28 +56,28 @@ public class Contato {
 		return dataAlteracao;
 	}
 
-	public void setDataAlteracao(String dataAlteracao) {
-		validarIntervalo(formatacaoDeData(dataAlteracao));
-		this.dataAlteracao = formatacaoDeData(dataAlteracao);
+	public void setDataAlteracao(int year, int month, int date) {
+		validarIntervalo(dataAlteracao);
+		this.dataAlteracao = definirData(year, month, date);
 	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(String dataCadastro) {
-		validarIntervalo(formatacaoDeData(dataCadastro));
-		this.dataCadastro = formatacaoDeData(dataCadastro);
+	public void setDataCadastro(int year, int month, int date) {
+		validarIntervalo(dataCadastro);
+		this.dataCadastro = definirData(year, month, date);
 	}
 
 	private void usuarioNaoDeveSerNulo(String usuario) {
-		if(usuario == null) {
+		if (usuario == null) {
 			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
 		}
 	}
 
 	private void telefoneNaoDeveSerNulo(Telefone telefone) {
-		if(telefone == null) {
+		if (telefone == null) {
 			throw new IllegalArgumentException("Telefone da Empresa não deve ser nulo");
 		}
 	}

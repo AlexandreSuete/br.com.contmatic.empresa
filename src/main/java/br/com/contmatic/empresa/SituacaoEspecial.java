@@ -3,29 +3,26 @@ package br.com.contmatic.empresa;
 import static br.com.contmatic.empresa.util.Datas.definirData;
 import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SituacaoEspecial {
 
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-	public SituacaoEspecial(String status, String data) {
+	public SituacaoEspecial(String status, int year, int month, int date) {
 		this.setStatus(status);
-		this.setData(data);
+		this.setData(year, month, date);
 	}
 
 	private String status;
 
 	private Date data;
-	
+
 	private String usuario;
 
 	private Date dataAlteracao;
 
 	private Date dataCadastro;
 
-	public String getSitEspecial() {
+	public String getStatus() {
 		return status;
 	}
 
@@ -39,10 +36,10 @@ public class SituacaoEspecial {
 	}
 
 	public void setData(int year, int month, int date) {
-		validarIntervalo(definirData(year,month,date));
-		this.data = definirData(year,month,date);
+		validarIntervalo(definirData(year, month, date));
+		this.data = definirData(year, month, date);
 	}
-	
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -58,7 +55,7 @@ public class SituacaoEspecial {
 
 	public void setDataAlteracao(int year, int month, int date) {
 		validarIntervalo(dataAlteracao);
-		this.dataAlteracao = definirData(year,month,date);
+		this.dataAlteracao = definirData(year, month, date);
 	}
 
 	public Date getDataCadastro() {
@@ -67,11 +64,11 @@ public class SituacaoEspecial {
 
 	public void setDataCadastro(int year, int month, int date) {
 		validarIntervalo(dataCadastro);
-		this.dataCadastro = definirData(year,month,date);
+		this.dataCadastro = definirData(year, month, date);
 	}
-	
+
 	private void usuarioNaoDeveSerNulo(String usuario) {
-		if(usuario == null) {
+		if (usuario == null) {
 			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
 		}
 	}

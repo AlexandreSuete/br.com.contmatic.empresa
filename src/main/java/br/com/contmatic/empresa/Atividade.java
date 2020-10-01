@@ -1,7 +1,7 @@
 package br.com.contmatic.empresa;
 
 import static br.com.contmatic.empresa.util.Constantes.*;
-import static br.com.contmatic.empresa.util.Datas.formatacaoDeData;
+import static br.com.contmatic.empresa.util.Datas.definirData;
 import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
 
 import java.util.Date;
@@ -13,7 +13,7 @@ public class Atividade {
 	private String descricao;
 
 	private Atividade secundario;
-	
+
 	private String usuario;
 
 	private Date dataAlteracao;
@@ -47,7 +47,7 @@ public class Atividade {
 		this.atividadeNaoDeveUltrapassarLimiteDeCaracteres(descricao);
 		this.descricao = descricao;
 	}
-	
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -61,22 +61,30 @@ public class Atividade {
 		return dataAlteracao;
 	}
 
-	public void setDataAlteracao(String dataAlteracao) {
-		validarIntervalo(formatacaoDeData(dataAlteracao));
-		this.dataAlteracao = formatacaoDeData(dataAlteracao);
+	public void setDataAlteracao(int year, int month, int date) {
+		validarIntervalo(dataAlteracao);
+		this.dataAlteracao = definirData(year, month, date);
 	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(String dataCadastro) {
-		validarIntervalo(formatacaoDeData(dataCadastro));
-		this.dataCadastro = formatacaoDeData(dataCadastro);
+	public void setDataCadastro(int year, int month, int date) {
+		validarIntervalo(dataCadastro);
+		this.dataCadastro = definirData(year, month, date);
+	}
+
+	public String getSecundario() {
+		return secundario.toString();
+	}
+
+	public void setSecundario(String codigo, String descricao) {
+		secundario = new Atividade(codigo, descricao);
 	}
 
 	private void usuarioNaoDeveSerNulo(String usuario) {
-		if(usuario == null) {
+		if (usuario == null) {
 			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
 		}
 	}
@@ -123,7 +131,6 @@ public class Atividade {
 		int result = 1;
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((secundario == null) ? 0 : secundario.hashCode());
 		return result;
 	}
 
@@ -146,17 +153,12 @@ public class Atividade {
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
-		if (secundario == null) {
-			if (other.secundario != null)
-				return false;
-		} else if (!secundario.equals(other.secundario))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Atividade [codigo=" + codigo + ", descricao=" + descricao + ", secundario=" + secundario + "]";
+		return "Atividade [codigo=" + codigo + ", descricao=" + descricao + "]";
 	}
 
 }

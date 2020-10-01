@@ -1,5 +1,6 @@
 package br.com.contmatic.empresa;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.AfterAll;
@@ -11,9 +12,9 @@ import org.junit.jupiter.api.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MunicipioTest {
-	
-Municipio municipio = null;
-	
+
+	Municipio municipio = null;
+
 	@BeforeAll
 	public static void init() {
 		System.out.println("Iniciando os Testes de Municipio");
@@ -21,14 +22,29 @@ Municipio municipio = null;
 
 	@BeforeEach
 	public void initEach() {
-		municipio = new Municipio("SAO JOSE DOS CAMPOS","SP");
+		municipio = new Municipio("SAO JOSE DOS CAMPOS", "SP");
 	}
 
 	@AfterAll
 	public static void cleanUp() {
 		System.out.println("Finalizando os testes de Municipio");
 	}
-	
+
+	@Test
+	@Order(0)
+	public void testar_dados_validos() {
+		this.deve_aceitar_municipio_valido();
+		this.deve_aceitar_uf_valido();
+	}
+
+	private void deve_aceitar_municipio_valido() {
+		assertEquals("SAO JOSE DOS CAMPOS", municipio.getMunicipio());
+	}
+
+	private void deve_aceitar_uf_valido() {
+		assertEquals("SP", municipio.getUf());
+	}
+
 	@Test
 	@Order(1)
 	public void municipio_da_empresa_nao_deve_ser_nulo() {
@@ -36,7 +52,7 @@ Municipio municipio = null;
 			municipio.setMunicipio(null);
 		});
 	}
-	
+
 	@Test
 	@Order(2)
 	public void testar_uf() {
@@ -44,7 +60,7 @@ Municipio municipio = null;
 		this.uf_da_empresa_deve_conter_2_letras();
 		this.uf_da_empresa_nao_deve_conter_numeros();
 	}
-	
+
 	private void uf_da_empresa_nao_deve_ser_nulo() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			municipio.setUf(null);

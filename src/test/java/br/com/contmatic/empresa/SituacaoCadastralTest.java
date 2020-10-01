@@ -1,8 +1,7 @@
 package br.com.contmatic.empresa;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.text.ParseException;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,21 +16,26 @@ public class SituacaoCadastralTest {
 
 	SituacaoCadastral sitCadastral = null;
 
-	String dataSitCadastral = "26/06/2004";
-
 	@BeforeAll
 	public static void init() {
 		System.out.println("Iniciando os Testes de Situação Cadastral");
 	}
 
 	@BeforeEach
-	public void initEach() throws ParseException {
-		sitCadastral = new SituacaoCadastral("", "ATIVA", dataSitCadastral);
+	public void initEach() {
+		sitCadastral = new SituacaoCadastral("", "ATIVA", 2004, 05, 26);
 	}
 
 	@AfterAll
 	public static void cleanUp() {
 		System.out.println("Finalizando os testes de Situação Cadastral");
+	}
+
+	@Test
+	@Order(0)
+	public void testar_dados_validos() {
+		this.deve_aceitar_motivo_valido();
+		this.deve_aceitar_status_valido();
 	}
 
 	@Test
@@ -48,6 +52,14 @@ public class SituacaoCadastralTest {
 		assertThrows(IllegalArgumentException.class, () -> {
 			sitCadastral.setMotivo(null);
 		});
+	}
+
+	private void deve_aceitar_motivo_valido() {
+		assertEquals("", sitCadastral.getMotivo());
+	}
+
+	private void deve_aceitar_status_valido() {
+		assertEquals("ATIVA", sitCadastral.getStatus());
 	}
 
 }

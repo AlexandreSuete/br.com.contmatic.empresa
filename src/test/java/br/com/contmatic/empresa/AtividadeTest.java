@@ -1,5 +1,6 @@
 package br.com.contmatic.empresa;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.AfterAll;
@@ -17,12 +18,20 @@ public class AtividadeTest {
 
 	@BeforeEach
 	public void initEach() {
-		atividade = new Atividade("6203100","Desenvolvimento e Licenciamento de programas de computador não-customizáveis");
+		atividade = new Atividade("6203100",
+				"Desenvolvimento e Licenciamento de programas de computador não-customizáveis");
 	}
 
 	@AfterAll
 	public static void cleanUp() {
 		System.out.println("Finalizando os testes de Atividade");
+	}
+
+	@Test
+	public void testar_dados_validos() {
+		this.deve_aceitar_atividade_secudaria_valida();
+		this.deve_aceitar_codigo_valido();
+		this.deve_aceitar_descricao_valida();
 	}
 
 	@Test
@@ -50,4 +59,19 @@ public class AtividadeTest {
 		});
 	}
 
+	private void deve_aceitar_atividade_secudaria_valida() {
+		atividade.setSecundario("8599699", "Outras atividades de ensino não especificadas anteriormente");
+		assertEquals(
+				"Atividade [codigo=8599699, descricao=Outras atividades de ensino não especificadas anteriormente]",
+				atividade.getSecundario());
+	}
+
+	private void deve_aceitar_codigo_valido() {
+		assertEquals("6203100", atividade.getCodAtividade());
+	}
+
+	private void deve_aceitar_descricao_valida() {
+		assertEquals("Desenvolvimento e Licenciamento de programas de computador não-customizáveis",
+				atividade.getAtividade());
+	}
 }

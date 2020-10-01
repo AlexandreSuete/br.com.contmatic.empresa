@@ -8,17 +8,17 @@ import java.util.Date;
 public class Telefone {
 
 	private int ddi;
-	
+
 	private int ddd;
-	
+
 	private String telefone;
-	
+
 	private String usuario;
 
 	private Date dataAlteracao;
 
 	private Date dataCadastro;
-	
+
 	public Telefone(int ddi, int ddd, String telefone) {
 		this.setDdi(ddi);
 		this.setDdd(ddd);
@@ -53,7 +53,7 @@ public class Telefone {
 		this.telefoneNaoDeveConterLetras(telefone);
 		this.telefone = telefone;
 	}
-	
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -69,7 +69,7 @@ public class Telefone {
 
 	public void setDataAlteracao(int year, int month, int date) {
 		validarIntervalo(dataAlteracao);
-		this.dataAlteracao = definirData(year,month,date);
+		this.dataAlteracao = definirData(year, month, date);
 	}
 
 	public Date getDataCadastro() {
@@ -78,41 +78,41 @@ public class Telefone {
 
 	public void setDataCadastro(int year, int month, int date) {
 		validarIntervalo(dataCadastro);
-		this.dataCadastro = definirData(year,month,date);
+		this.dataCadastro = definirData(year, month, date);
 	}
-	
+
 	private void telefoneNaoDeveConterLetras(String telefone) {
 		if (telefone.substring(0, 9).matches("[A-Z|a-z]*")) {
 			throw new IllegalArgumentException("O Telefone não deve conter letras");
 		}
 	}
-	
+
 	private void validarDDI(int ddi) {
-		if(ddi<1 || ddi>999) {
+		if (ddi < 1 || ddi > 999) {
 			throw new IllegalArgumentException("O DDI digitado não é valido");
 		}
 	}
-	
+
 	private void usuarioNaoDeveSerNulo(String usuario) {
-		if(usuario == null) {
+		if (usuario == null) {
 			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
 		}
 	}
 
 	private void validarDDD(int ddd) {
-		if(ddd<11 || ddd>99) {
+		if (ddd < 11 || ddd > 99) {
 			throw new IllegalArgumentException("O DDD digitado não é valido");
 		}
 	}
-	
+
 	private void validarTelefone(String telefone) {
-		if(telefone.length()<8||telefone.length()>9) {
+		if (telefone.length() < 8 || telefone.length() > 9) {
 			throw new IllegalArgumentException("O telefone digitado não é valido");
 		}
 	}
-	
+
 	private void telefoneNaoDeveSerNulo(String telefone) {
-		if(telefone == null) {
+		if (telefone == null) {
 			throw new IllegalArgumentException("O Telefone não deve ser nulo");
 		}
 	}

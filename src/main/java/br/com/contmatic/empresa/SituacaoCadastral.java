@@ -1,41 +1,38 @@
 package br.com.contmatic.empresa;
 
 import static br.com.contmatic.empresa.util.Constantes.STRING_MAX_LENGTH;
-import static br.com.contmatic.empresa.util.Datas.formatacaoDeData;
+import static br.com.contmatic.empresa.util.Datas.definirData;
 import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SituacaoCadastral {
-	
+
 	private String motivo;
-	
+
 	private String status;
-	
+
 	private Date data;
-	
+
 	private String usuario;
 
 	private Date dataAlteracao;
 
 	private Date dataCadastro;
-	
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	
-	public SituacaoCadastral(String motivo, String status, String data) {
+
+	public SituacaoCadastral(String motivo, String status, int year, int month, int date) {
 		this.setMotivo(motivo);
 		this.setStatus(status);
-		this.setData (data);
+		this.setData(year, month, date);
 	}
 
 	public Date getDataSituacaoCadastral() {
 		return data;
 	}
 
-	public void setData(String data) {
-		validarIntervalo(formatacaoDeData(data));
-		this.data = formatacaoDeData(data);
+	public void setData(int year, int month, int date) {
+		validarIntervalo(definirData(year, month, date));
+		this.data = definirData(year, month, date);
 	}
 
 	public String getStatus() {
@@ -47,7 +44,7 @@ public class SituacaoCadastral {
 		this.statusNaoDeveUltrapassarOLimiteDeCaracteres(status);
 		this.status = status;
 	}
-	
+
 	public String getMotivo() {
 		return motivo;
 	}
@@ -57,7 +54,7 @@ public class SituacaoCadastral {
 		this.motivoNaoDeveUltrapassarLimiteDeCaracteres(motivo);
 		this.motivo = motivo;
 	}
-	
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -71,44 +68,44 @@ public class SituacaoCadastral {
 		return dataAlteracao;
 	}
 
-	public void setDataAlteracao(String dataAlteracao) {
-		validarIntervalo(formatacaoDeData(dataAlteracao));
-		this.dataAlteracao = formatacaoDeData(dataAlteracao);
+	public void setDataAlteracao(int year, int month, int date) {
+		validarIntervalo(dataAlteracao);
+		this.dataAlteracao = definirData(year, month, date);
 	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(String dataCadastro) {
-		validarIntervalo(formatacaoDeData(dataCadastro));
-		this.dataCadastro = formatacaoDeData(dataCadastro);
+	public void setDataCadastro(int year, int month, int date) {
+		validarIntervalo(dataCadastro);
+		this.dataCadastro = definirData(year, month, date);
 	}
-	
+
 	private void usuarioNaoDeveSerNulo(String usuario) {
-		if(usuario == null) {
+		if (usuario == null) {
 			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
 		}
 	}
 
 	private void statusNaoDeveSerNulo(String status) {
-		if(status == null) {
+		if (status == null) {
 			throw new IllegalArgumentException("A Situação Cadastral não deve ser nula");
 		}
 	}
-	
+
 	private void motivoNaoDeveUltrapassarLimiteDeCaracteres(String motivo) {
 		if (motivo.length() > STRING_MAX_LENGTH) {
 			throw new IllegalArgumentException("O Motivo da Situação Cadastral não deve ultrapassar 255 caracteres");
 		}
 	}
-	
+
 	private void motivoNaoDeveSerNulo(String motivo) {
-		if(motivo == null) {
+		if (motivo == null) {
 			throw new IllegalArgumentException("O Motivo da Situação Cadastral não deve ser nulo");
 		}
 	}
-	
+
 	private void statusNaoDeveUltrapassarOLimiteDeCaracteres(String status) {
 		if (status.length() > STRING_MAX_LENGTH) {
 			throw new IllegalArgumentException("A Situação Cadastral não deve ultrapassar 255 caracteres");

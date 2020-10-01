@@ -46,13 +46,12 @@ public class Empresa {
 			String porte, int year, int month, int date, Contato contato, Endereco endereco, Atividade atividade,
 			SituacaoCadastral situacaoCadastral) {
 		this.setCnpj(cnpj);
-		
 		this.setRazaoSocial(razaoSocial);
 		this.setNomeFantasia(nomeFantasia);
 		this.setCodNatJuridica(codNatJuridica);
 		this.setNatJuridica(natJuridica);
 		this.setPorte(porte);
-		this.setDataAbertura(year,month,date);
+		this.setDataAbertura(year, month, date);
 		this.setContato(contato);
 		this.setEndereco(endereco);
 		this.setAtividade(atividade);
@@ -128,8 +127,8 @@ public class Empresa {
 	}
 
 	public void setDataAbertura(int year, int month, int date) {
-		validarIntervalo(dataAbertura);
-		this.dataAbertura = definirData(year,month,date);
+		validarIntervalo(definirData(year, month, date));
+		this.dataAbertura = definirData(year, month, date);
 	}
 
 	public String getEnteFederativo() {
@@ -200,8 +199,8 @@ public class Empresa {
 	}
 
 	public void setDataAlteracao(int year, int month, int date) {
-		validarIntervalo(dataAlteracao);
-		this.dataAlteracao = definirData(year,month,date);
+		validarIntervalo(definirData(year, month, date));
+		this.dataAlteracao = definirData(year, month, date);
 	}
 
 	public Date getDataCadastro() {
@@ -209,8 +208,8 @@ public class Empresa {
 	}
 
 	public void setDataCadastro(int year, int month, int date) {
-		validarIntervalo(dataCadastro);
-		this.dataCadastro = definirData(year,month,date);
+		validarIntervalo(definirData(year, month, date));
+		this.dataCadastro = definirData(year, month, date);
 	}
 
 	public String getIp() {
@@ -228,7 +227,7 @@ public class Empresa {
 	}
 
 	private void usuarioNaoDeveSerNulo(String usuario) {
-		if(usuario == null) {
+		if (usuario == null) {
 			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
 		}
 	}

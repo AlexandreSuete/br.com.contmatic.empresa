@@ -6,26 +6,26 @@ import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
 import java.util.Date;
 
 public class Municipio {
-	
+
 	private String municipio;
-	
+
 	private String uf;
-	
+
 	private String usuario;
 
 	private Date dataAlteracao;
 
 	private Date dataCadastro;
-	
+
 	public Municipio(String municipio, String uf) {
 		this.setMunicipio(municipio);
 		this.setUf(uf);
 	}
-	
+
 	public String getMunicipio() {
 		return municipio;
 	}
-	
+
 	public void setMunicipio(String municipio) {
 		this.municipioDaEmpresaNaoDeveSerNulo(municipio);
 		this.municipio = municipio;
@@ -41,7 +41,7 @@ public class Municipio {
 		this.ufDeveConterApenasLetras(uf);
 		this.uf = uf;
 	}
-	
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -57,7 +57,7 @@ public class Municipio {
 
 	public void setDataAlteracao(int year, int month, int date) {
 		validarIntervalo(dataAlteracao);
-		this.dataAlteracao = definirData(year,month,date);
+		this.dataAlteracao = definirData(year, month, date);
 	}
 
 	public Date getDataCadastro() {
@@ -66,21 +66,21 @@ public class Municipio {
 
 	public void setDataCadastro(int year, int month, int date) {
 		validarIntervalo(dataCadastro);
-		this.dataCadastro = definirData(year,month,date);
+		this.dataCadastro = definirData(year, month, date);
 	}
-	
+
 	private void usuarioNaoDeveSerNulo(String usuario) {
-		if(usuario == null) {
+		if (usuario == null) {
 			throw new IllegalArgumentException("Usuario Não Deve Ser Nulo");
 		}
 	}
 
 	private void municipioDaEmpresaNaoDeveSerNulo(String municipio) {
-		if(municipio == null) {
+		if (municipio == null) {
 			throw new IllegalArgumentException("O Municipio Da Empresa não deve ser nulo");
 		}
 	}
-	
+
 	private void ufDeveConterApenasLetras(String uf) {
 		if (!uf.substring(0, 1).matches("[A-Z|a-z]*")) {
 			throw new IllegalArgumentException("O UF da Empresa deve conter apenas letras");
@@ -94,7 +94,7 @@ public class Municipio {
 	}
 
 	private void ufDaEmpresaNaoDeveSerNulo(String uf) {
-		if(uf == null) {
+		if (uf == null) {
 			throw new IllegalArgumentException("O UF Da Empresa não deve ser nulo");
 		}
 	}
