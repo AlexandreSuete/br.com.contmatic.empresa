@@ -1,7 +1,6 @@
 package br.com.contmatic.empresa;
 
 import static br.com.contmatic.empresa.util.Constantes.*;
-import static br.com.contmatic.empresa.util.Datas.definirData;
 import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
 
 import java.util.Date;
@@ -101,18 +100,18 @@ public class Endereco {
 		return dataAlteracao;
 	}
 
-	public void setDataAlteracao(int year, int month, int date) {
-		validarIntervalo(dataAlteracao);
-		this.dataAlteracao = definirData(year, month, date);
+	public void setDataAlteracao(Date data) {
+		validarIntervalo(data);
+		this.dataAlteracao = data;
 	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(int year, int month, int date) {
-		validarIntervalo(dataCadastro);
-		this.dataCadastro = definirData(year, month, date);
+	public void setDataCadastro(Date data) {
+		validarIntervalo(data);
+		this.dataCadastro = data;
 	}
 
 	private void usuarioNaoDeveSerNulo(String usuario) {
@@ -168,7 +167,6 @@ public class Endereco {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
-		result = prime * result + numLogradouro;
 		return result;
 	}
 
@@ -185,8 +183,6 @@ public class Endereco {
 			if (other.cep != null)
 				return false;
 		} else if (!cep.equals(other.cep))
-			return false;
-		if (numLogradouro != other.numLogradouro)
 			return false;
 		return true;
 	}

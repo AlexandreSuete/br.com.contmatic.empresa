@@ -1,7 +1,6 @@
 package br.com.contmatic.empresa;
 
 import static br.com.contmatic.empresa.util.Constantes.*;
-import static br.com.contmatic.empresa.util.Datas.definirData;
 import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
 
 import java.util.Date;
@@ -61,18 +60,18 @@ public class Atividade {
 		return dataAlteracao;
 	}
 
-	public void setDataAlteracao(int year, int month, int date) {
-		validarIntervalo(dataAlteracao);
-		this.dataAlteracao = definirData(year, month, date);
+	public void setDataAlteracao(Date data) {
+		validarIntervalo(data);
+		this.dataAlteracao = data;
 	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(int year, int month, int date) {
-		validarIntervalo(dataCadastro);
-		this.dataCadastro = definirData(year, month, date);
+	public void setDataCadastro(Date data) {
+		validarIntervalo(data);
+		this.dataCadastro = data;
 	}
 
 	public String getSecundario() {

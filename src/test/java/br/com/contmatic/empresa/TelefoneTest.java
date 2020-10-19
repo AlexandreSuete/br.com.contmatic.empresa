@@ -3,12 +3,14 @@ package br.com.contmatic.empresa;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Date;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class TelefoneTest {
+ class TelefoneTest {
 
 	Telefone telefone = null;
 
@@ -20,6 +22,7 @@ public class TelefoneTest {
 	@BeforeEach
 	public void initEach() {
 		telefone = new Telefone(55, 11, "29426700");
+		telefone.setUsuario("Alexandre");
 	}
 
 	@AfterAll
@@ -28,17 +31,70 @@ public class TelefoneTest {
 	}
 
 	@Test
-	public void testar_dados_validos() {
+	void testar_dados_validos() {
+		this.deve_aceitar_data_de_cadastro_valida();
+		this.deve_aceitar_data_de_alteracao_valida();
 		this.deve_aceitar_ddd_valido();
 		this.deve_aceitar_ddi_valido();
+		this.deve_aceitar_usuario_valido();
 		this.deve_aceitar_telefone_valido();
 	}
 
 	@Test
-	public void testar_telefone() {
-		this.telefone_da_empresa_nao_deve_ser_nulo();
-		this.telefone_da_empresa_deve_conter_9_ou_8_numeros();
+	void testar_telefone() {
 		this.telefone_nao_deve_conter_letras();
+		this.telefone_da_empresa_nao_deve_ser_nulo();
+		this.telefone_da_empresa_deve_conter_9_digitos();
+	}
+	
+	@Test
+	void nao_deve_aceitar_usuario_nulo() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			telefone.setUsuario(null);
+		});
+	}
+
+	@Test
+	void deve_aceitar_usuario_valido() {
+		assertEquals("Alexandre", telefone.getUsuario());
+	}
+	
+	@Test
+	void nao_deve_aceitar_ddi_invalido_abaixo_de_um() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			telefone.setDdi(0);
+		});
+	}
+	
+	@Test
+	void nao_deve_aceitar_ddi_invalido() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			telefone.setDdi(10000);
+		});
+	}
+	
+	@Test
+	void nao_deve_aceitar_ddd_invalido() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			telefone.setDdd(9);
+		});
+	}
+	
+	@Test
+	void nao_deve_aceitar_ddd_invalido_superior_a_99() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			telefone.setDdd(100);
+		});
+	}
+
+	private void deve_aceitar_data_de_alteracao_valida() {
+		telefone.setDataAlteracao(new Date());
+		assertEquals(new Date(), telefone.getDataAlteracao());
+	}
+
+	private void deve_aceitar_data_de_cadastro_valida() {
+		telefone.setDataCadastro(new Date());
+		assertEquals(new Date(), telefone.getDataCadastro());
 	}
 
 	private void telefone_da_empresa_nao_deve_ser_nulo() {
@@ -47,7 +103,7 @@ public class TelefoneTest {
 		});
 	}
 
-	private void telefone_da_empresa_deve_conter_9_ou_8_numeros() {
+	private void telefone_da_empresa_deve_conter_9_digitos() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			telefone.setTelefone("0123456");
 		});
@@ -55,7 +111,7 @@ public class TelefoneTest {
 
 	private void telefone_nao_deve_conter_letras() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			telefone.setTelefone("asdefefef");
+			telefone.setTelefone("asdefefe");
 		});
 	}
 

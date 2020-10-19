@@ -1,13 +1,12 @@
 package br.com.contmatic.empresa;
 
-import static br.com.contmatic.empresa.util.Datas.definirData;
 import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
 
 import java.util.Date;
 
 public class Municipio {
 
-	private String municipio;
+	private String cidade;
 
 	private String uf;
 
@@ -23,12 +22,12 @@ public class Municipio {
 	}
 
 	public String getMunicipio() {
-		return municipio;
+		return cidade;
 	}
 
 	public void setMunicipio(String municipio) {
 		this.municipioDaEmpresaNaoDeveSerNulo(municipio);
-		this.municipio = municipio;
+		this.cidade = municipio;
 	}
 
 	public String getUf() {
@@ -55,18 +54,18 @@ public class Municipio {
 		return dataAlteracao;
 	}
 
-	public void setDataAlteracao(int year, int month, int date) {
-		validarIntervalo(dataAlteracao);
-		this.dataAlteracao = definirData(year, month, date);
+	public void setDataAlteracao(Date data) {
+		validarIntervalo(data);
+		this.dataAlteracao = data;
 	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(int year, int month, int date) {
-		validarIntervalo(dataCadastro);
-		this.dataCadastro = definirData(year, month, date);
+	public void setDataCadastro(Date data) {
+		validarIntervalo(data);
+		this.dataCadastro = data;
 	}
 
 	private void usuarioNaoDeveSerNulo(String usuario) {
@@ -103,7 +102,7 @@ public class Municipio {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((municipio == null) ? 0 : municipio.hashCode());
+		result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
 		result = prime * result + ((uf == null) ? 0 : uf.hashCode());
 		return result;
 	}
@@ -117,10 +116,10 @@ public class Municipio {
 		if (getClass() != obj.getClass())
 			return false;
 		Municipio other = (Municipio) obj;
-		if (municipio == null) {
-			if (other.municipio != null)
+		if (cidade == null) {
+			if (other.cidade != null)
 				return false;
-		} else if (!municipio.equals(other.municipio))
+		} else if (!cidade.equals(other.cidade))
 			return false;
 		if (uf == null) {
 			if (other.uf != null)
@@ -132,6 +131,6 @@ public class Municipio {
 
 	@Override
 	public String toString() {
-		return "Municipio [municipio=" + municipio + ", uf=" + uf + "]";
+		return "Municipio [municipio=" + cidade + ", uf=" + uf + "]";
 	}
 }

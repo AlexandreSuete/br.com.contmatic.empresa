@@ -1,6 +1,6 @@
 package br.com.contmatic.empresa.util;
 
-public final class Constantes {
+public class Constantes {
 
 	public static final int TELEFONE_INITI_LENGTH = 0;
 

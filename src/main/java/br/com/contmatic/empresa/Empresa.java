@@ -1,7 +1,6 @@
 package br.com.contmatic.empresa;
 
 import static br.com.contmatic.empresa.util.Constantes.*;
-import static br.com.contmatic.empresa.util.Datas.definirData;
 import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
 
 import java.util.Date;
@@ -43,7 +42,7 @@ public class Empresa {
 	private String ip;
 
 	public Empresa(String cnpj, String razaoSocial, String nomeFantasia, String codNatJuridica, String natJuridica,
-			String porte, int year, int month, int date, Contato contato, Endereco endereco, Atividade atividade,
+			String porte, Date data, Contato contato, Endereco endereco, Atividade atividade,
 			SituacaoCadastral situacaoCadastral) {
 		this.setCnpj(cnpj);
 		this.setRazaoSocial(razaoSocial);
@@ -51,7 +50,7 @@ public class Empresa {
 		this.setCodNatJuridica(codNatJuridica);
 		this.setNatJuridica(natJuridica);
 		this.setPorte(porte);
-		this.setDataAbertura(year, month, date);
+		this.setDataAbertura(data);
 		this.setContato(contato);
 		this.setEndereco(endereco);
 		this.setAtividade(atividade);
@@ -65,8 +64,7 @@ public class Empresa {
 	public void setCnpj(String cnpj) {
 		this.cnpjNaoPodeSerNulo(cnpj);
 		this.cnpjDeveConter14Digitos(cnpj);
-		this.cnpjNãoPodeTerLetras(cnpj);
-		this.cnpjNaoDeveConterEspacosEmBranco(cnpj);
+		this.cnpjNaoPodeTerLetras(cnpj);
 		this.validarCnpj(cnpj);
 		this.cnpj = cnpj;
 	}
@@ -126,9 +124,9 @@ public class Empresa {
 		return dataAbertura;
 	}
 
-	public void setDataAbertura(int year, int month, int date) {
-		validarIntervalo(definirData(year, month, date));
-		this.dataAbertura = definirData(year, month, date);
+	public void setDataAbertura(Date dataAbertura) {
+		validarIntervalo(dataAbertura);
+		this.dataAbertura = dataAbertura;
 	}
 
 	public String getEnteFederativo() {
@@ -198,18 +196,18 @@ public class Empresa {
 		return dataAlteracao;
 	}
 
-	public void setDataAlteracao(int year, int month, int date) {
-		validarIntervalo(definirData(year, month, date));
-		this.dataAlteracao = definirData(year, month, date);
+	public void setDataAlteracao(Date data) {
+		validarIntervalo(data);
+		this.dataAlteracao = data;
 	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(int year, int month, int date) {
-		validarIntervalo(definirData(year, month, date));
-		this.dataCadastro = definirData(year, month, date);
+	public void setDataCadastro(Date data) {
+		validarIntervalo(data);
+		this.dataCadastro = data;
 	}
 
 	public String getIp() {
@@ -253,13 +251,6 @@ public class Empresa {
 	private void situacaoCadastralNaoDeveSerNula(SituacaoCadastral situacaoCadastral) {
 		if (situacaoCadastral == null) {
 			throw new IllegalArgumentException("A Situação Cadastral Não deve ser nula");
-		}
-	}
-
-	private void cnpjNaoDeveConterEspacosEmBranco(String cnpj) {
-		if (cnpj.substring(INIT_LENGTH, CNPJ_LENGTH).matches(" ")) {
-			throw new IllegalArgumentException(
-					"O Codigo de Atividade Secundaria da Empresa não pode conter espaços em branco");
 		}
 	}
 
@@ -381,7 +372,7 @@ public class Empresa {
 		int num;
 		int peso = 2;
 		for (i = valor; i >= 0; i--) {
-			num = (int) (cnpj.charAt(i) - 48);
+			num =  (cnpj.charAt(i) - 48);
 			sm = sm + (num * peso);
 			peso = peso + 1;
 			if (peso == 10)
@@ -402,9 +393,9 @@ public class Empresa {
 		}
 	}
 
-	private void cnpjNãoPodeTerLetras(String cnpj) {
-		if (cnpj.substring(0, 13).matches("[A-Z|a-z]*")) {
-			throw new IllegalArgumentException("O CNPJ da Empresa não pode conter letras");
+	private void cnpjNaoPodeTerLetras(String cnpj) {
+		if (cnpj.substring(0, 13).matches("[A-Z|a-z]*")||cnpj.substring(INIT_LENGTH, CNPJ_LENGTH).matches(" ")) {
+			throw new IllegalArgumentException("O CNPJ da Empresa não pode conter letras nem espaços em branco");
 		}
 	}
 
@@ -437,7 +428,7 @@ public class Empresa {
 	public String toString() {
 		return "Empresa [cnpj=" + cnpj + ", razaoSocial=" + razaoSocial + ", nomeFantasia=" + nomeFantasia
 				+ ", codNatJuridica=" + codNatJuridica + ", natJuridica=" + natJuridica + ", porte=" + porte
-				+ ", dataAbertura=" + dataAbertura + ", enteFederativo=" + enteFederativo + "]";
+				+ ", enteFederativo=" + enteFederativo + "]";
 	}
 
 }

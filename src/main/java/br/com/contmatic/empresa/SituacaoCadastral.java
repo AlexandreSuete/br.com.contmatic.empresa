@@ -1,7 +1,6 @@
 package br.com.contmatic.empresa;
 
 import static br.com.contmatic.empresa.util.Constantes.STRING_MAX_LENGTH;
-import static br.com.contmatic.empresa.util.Datas.definirData;
 import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
 
 import java.util.Date;
@@ -20,19 +19,19 @@ public class SituacaoCadastral {
 
 	private Date dataCadastro;
 
-	public SituacaoCadastral(String motivo, String status, int year, int month, int date) {
+	public SituacaoCadastral(String motivo, String status, Date data) {
 		this.setMotivo(motivo);
 		this.setStatus(status);
-		this.setData(year, month, date);
+		this.setData(data);
 	}
 
 	public Date getDataSituacaoCadastral() {
 		return data;
 	}
 
-	public void setData(int year, int month, int date) {
-		validarIntervalo(definirData(year, month, date));
-		this.data = definirData(year, month, date);
+	public void setData(Date data) {
+		validarIntervalo(data);
+		this.data = data;
 	}
 
 	public String getStatus() {
@@ -68,18 +67,18 @@ public class SituacaoCadastral {
 		return dataAlteracao;
 	}
 
-	public void setDataAlteracao(int year, int month, int date) {
-		validarIntervalo(dataAlteracao);
-		this.dataAlteracao = definirData(year, month, date);
+	public void setDataAlteracao(Date data) {
+		validarIntervalo(data);
+		this.dataAlteracao = data;
 	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(int year, int month, int date) {
-		validarIntervalo(dataCadastro);
-		this.dataCadastro = definirData(year, month, date);
+	public void setDataCadastro(Date data) {
+		validarIntervalo(data);
+		this.dataCadastro = data;
 	}
 
 	private void usuarioNaoDeveSerNulo(String usuario) {

@@ -1,6 +1,5 @@
 package br.com.contmatic.empresa;
 
-import static br.com.contmatic.empresa.util.Datas.definirData;
 import static br.com.contmatic.empresa.util.Datas.validarIntervalo;
 
 import java.util.Date;
@@ -11,7 +10,7 @@ public class Telefone {
 
 	private int ddd;
 
-	private String telefone;
+	private String numTelefone;
 
 	private String usuario;
 
@@ -22,7 +21,7 @@ public class Telefone {
 	public Telefone(int ddi, int ddd, String telefone) {
 		this.setDdi(ddi);
 		this.setDdd(ddd);
-		this.telefone = telefone;
+		this.setTelefone(telefone);
 	}
 
 	public int getDdi() {
@@ -44,14 +43,14 @@ public class Telefone {
 	}
 
 	public String getTelefone() {
-		return telefone;
+		return numTelefone;
 	}
 
 	public void setTelefone(String telefone) {
 		this.telefoneNaoDeveSerNulo(telefone);
 		this.validarTelefone(telefone);
 		this.telefoneNaoDeveConterLetras(telefone);
-		this.telefone = telefone;
+		this.numTelefone = telefone;
 	}
 
 	public String getUsuario() {
@@ -67,22 +66,22 @@ public class Telefone {
 		return dataAlteracao;
 	}
 
-	public void setDataAlteracao(int year, int month, int date) {
-		validarIntervalo(dataAlteracao);
-		this.dataAlteracao = definirData(year, month, date);
+	public void setDataAlteracao(Date data) {
+		validarIntervalo(data);
+		this.dataAlteracao = data;
 	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(int year, int month, int date) {
-		validarIntervalo(dataCadastro);
-		this.dataCadastro = definirData(year, month, date);
+	public void setDataCadastro(Date data) {
+		validarIntervalo(data);
+		this.dataCadastro = data;
 	}
 
 	private void telefoneNaoDeveConterLetras(String telefone) {
-		if (telefone.substring(0, 9).matches("[A-Z|a-z]*")) {
+		if (telefone.substring(0, 8).matches("[A-Z|a-z]*")) {
 			throw new IllegalArgumentException("O Telefone não deve conter letras");
 		}
 	}
@@ -106,7 +105,7 @@ public class Telefone {
 	}
 
 	private void validarTelefone(String telefone) {
-		if (telefone.length() < 8 || telefone.length() > 9) {
+		if (telefone.length() != 8) {
 			throw new IllegalArgumentException("O telefone digitado não é valido");
 		}
 	}
@@ -121,7 +120,7 @@ public class Telefone {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
+		result = prime * result + ((numTelefone == null) ? 0 : numTelefone.hashCode());
 		return result;
 	}
 
@@ -134,16 +133,16 @@ public class Telefone {
 		if (getClass() != obj.getClass())
 			return false;
 		Telefone other = (Telefone) obj;
-		if (telefone == null) {
-			if (other.telefone != null)
+		if (numTelefone == null) {
+			if (other.numTelefone != null)
 				return false;
-		} else if (!telefone.equals(other.telefone))
+		} else if (!numTelefone.equals(other.numTelefone))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Telefone [ddi=" + ddi + ", ddd=" + ddd + ", telefone=" + telefone + "]";
+		return "Telefone [ddi=" + ddi + ", ddd=" + ddd + ", telefone=" + numTelefone + "]";
 	}
 }
