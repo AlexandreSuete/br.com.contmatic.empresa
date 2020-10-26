@@ -3,6 +3,8 @@ package br.com.contmatic.empresa;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -14,12 +16,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
 class EmpresaTest {
+	
+	Calendar calendar = Calendar.getInstance();
 
 	Empresa empresa = null;
 
 	Empresa empresa2 = null;
 
 	Empresa empresa3 = null;
+	
+	Empresa empresa4 = null;
 
 	Telefone telefone = new Telefone(55, 11, "29426700");
 
@@ -198,15 +204,38 @@ class EmpresaTest {
 	}
 	
 	@Test
-	void equals_hashcode_deve_funcionar_corretamente() {
-		assertEquals(true,empresa.equals(empresa2));
+	void nao_deve_aceitar_data_invalida() {
+		calendar.add(Calendar.DAY_OF_MONTH, 1);
+		assertThrows(IllegalStateException.class, () ->{
+			empresa.setDataAbertura(calendar.getTime());
+		});
 	}
 	
 	@Test
-	void nao_deve_aceitar_data_invalida() {
-		assertThrows(IllegalStateException.class, () ->{
-			empresa.setDataAbertura(new Date(2029,11,22));
-		});
+	void testar_equals_hashcode() {
+		this.teste_dois_objetos_iguais();
+		this.teste_mesmo_cnpj();
+		this.cnpj_valido_com_nulo();
+		this.teste_cnpj_iguais();
+		this.objetos_diferentes();
+	}
+	private void teste_dois_objetos_iguais() {
+		assertEquals(true,empresa.equals(empresa2));
+	}
+	
+	private void teste_mesmo_cnpj() {
+		assertEquals(true,empresa.equals(empresa));
+	}
+	
+	private void cnpj_valido_com_nulo() {
+		assertEquals(false,empresa3.equals(null));
+	}
+	private void teste_cnpj_iguais() {
+		assertEquals(true,empresa.getCnpj().equals(empresa2.getCnpj()));
+	}
+	
+	private void objetos_diferentes() {
+		assertEquals(false,empresa.getCnpj().equals(empresa3.getCnpj()));
 	}
 
 	private void string_porte() {
