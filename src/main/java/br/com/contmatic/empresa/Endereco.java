@@ -32,6 +32,10 @@ public class Endereco {
 		this.setCep(cep);
 	}
 
+	public Endereco(String cep) {
+		this.cep = cep;
+	}
+
 	public String getCep() {
 		return cep;
 	}

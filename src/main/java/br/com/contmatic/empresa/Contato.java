@@ -23,6 +23,11 @@ public class Contato {
 		this.setTelefone(telefone);
 	}
 
+	public Contato(String email) {
+		super();
+		this.email = email;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -111,7 +116,6 @@ public class Contato {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
 		return result;
 	}
 
@@ -128,11 +132,6 @@ public class Contato {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
-			return false;
-		if (telefone == null) {
-			if (other.telefone != null)
-				return false;
-		} else if (!telefone.equals(other.telefone))
 			return false;
 		return true;
 	}

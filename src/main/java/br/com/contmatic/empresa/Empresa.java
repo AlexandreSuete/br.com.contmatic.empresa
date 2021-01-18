@@ -57,6 +57,12 @@ public class Empresa {
 		this.setSituacaoCadastral(situacaoCadastral);
 	}
 
+	public Empresa(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+
+
 	public String getCnpj() {
 		return cnpj;
 	}
@@ -394,7 +400,7 @@ public class Empresa {
 	}
 
 	private void cnpjNaoPodeTerLetras(String cnpj) {
-		if (cnpj.substring(0, 13).matches("[A-Z|a-z]*")||cnpj.substring(INIT_LENGTH, CNPJ_LENGTH).matches(" ")) {
+		if (cnpj.substring(0, 13).matches("[A-Z|a-z]*")) {
 			throw new IllegalArgumentException("O CNPJ da Empresa não pode conter letras nem espaços em branco");
 		}
 	}

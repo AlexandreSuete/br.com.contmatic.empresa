@@ -3,7 +3,6 @@ package br.com.contmatic.empresa;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -26,6 +25,8 @@ class EmpresaTest {
 	Empresa empresa3 = null;
 	
 	Empresa empresa4 = null;
+	
+	Empresa empresa5 = null;
 
 	Telefone telefone = new Telefone(55, 11, "29426700");
 
@@ -65,6 +66,8 @@ class EmpresaTest {
 		empresa3 = new Empresa("61908973000118", "SOFTMATIC SISTEMAS AUTOMATICOS DE INFORMATICA LTDA",
 				"CONTMATIC PHOENIX", "2062", "Sociedade Empresária Limitada", "DEMAIS", new Date(), contato, endereco,
 				atividade, situacaoCadastral = new SituacaoCadastral("", "ATIVA", new Date()));
+		empresa4 = new Empresa(null);
+		empresa5 = new Empresa(null);
 	}
 
 	@AfterAll
@@ -212,30 +215,16 @@ class EmpresaTest {
 	}
 	
 	@Test
-	void testar_equals_hashcode() {
-		this.teste_dois_objetos_iguais();
-		this.teste_mesmo_cnpj();
-		this.cnpj_valido_com_nulo();
-		this.teste_cnpj_iguais();
-		this.objetos_diferentes();
-	}
-	private void teste_dois_objetos_iguais() {
-		assertEquals(true,empresa.equals(empresa2));
-	}
-	
-	private void teste_mesmo_cnpj() {
+	void teste_equals_hashcode() {
 		assertEquals(true,empresa.equals(empresa));
-	}
-	
-	private void cnpj_valido_com_nulo() {
-		assertEquals(false,empresa3.equals(null));
-	}
-	private void teste_cnpj_iguais() {
-		assertEquals(true,empresa.getCnpj().equals(empresa2.getCnpj()));
-	}
-	
-	private void objetos_diferentes() {
-		assertEquals(false,empresa.getCnpj().equals(empresa3.getCnpj()));
+		assertEquals(false,empresa.equals(null));
+		assertEquals(false,empresa.equals(1));
+		assertEquals(false,empresa.equals(empresa3));
+		assertEquals(false,empresa4.equals(empresa));
+		assertEquals(true,empresa.equals(empresa2));
+		assertEquals(true,empresa4.equals(empresa5));
+		assertEquals(true, empresa.hashCode() == empresa2.hashCode());
+		assertEquals(false, empresa4.hashCode() == empresa2.hashCode());	
 	}
 
 	private void string_porte() {

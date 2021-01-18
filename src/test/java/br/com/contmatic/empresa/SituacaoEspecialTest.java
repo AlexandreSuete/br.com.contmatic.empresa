@@ -21,6 +21,10 @@ class SituacaoEspecialTest {
 	SituacaoEspecial sitEspecial2 = null;
 	
 	SituacaoEspecial sitEspecial3 = null;
+	
+	SituacaoEspecial sitEspecial4 = null;
+	
+	SituacaoEspecial sitEspecial5 = null;
 
 	@BeforeAll
 	public static void init() {
@@ -32,6 +36,9 @@ class SituacaoEspecialTest {
 		sitEspecial = new SituacaoEspecial("INATIVA", new Date());
 		sitEspecial.setUsuario("Alexandre");
 		sitEspecial2 = new SituacaoEspecial("INATIVA", new Date());
+		sitEspecial3 = new SituacaoEspecial("ATIVA", new Date());
+		sitEspecial4 = new SituacaoEspecial(null);
+		sitEspecial5 = new SituacaoEspecial(null);
 	}
 
 	@AfterAll
@@ -71,14 +78,28 @@ class SituacaoEspecialTest {
 	}
 	
 	@Test
-	void equals_deve_funcionar_corretamente() {
-		assertEquals(true,sitEspecial.equals(sitEspecial2));
+	void deve_aceitar_hashcode_valido() {
+		assertEquals(sitEspecial.hashCode(), sitEspecial2.hashCode());
 	}
 	
 	@Test
-	void equals_deve_negar_corretamente() {
-		assertEquals(false,sitEspecial.equals(sitEspecial3));
+	void nao_deve_aceitar_hashcode_diferente() {
+		assertEquals(false, sitEspecial3.hashCode() == sitEspecial.hashCode());
 	}
+	
+	@Test
+	void teste_equals() {
+		assertEquals(true,sitEspecial.equals(sitEspecial));
+		assertEquals(false,sitEspecial.equals(null));
+		assertEquals(false,sitEspecial.equals(1));
+		assertEquals(false,sitEspecial.equals(sitEspecial3));
+		assertEquals(false,sitEspecial4.equals(sitEspecial));
+		assertEquals(true,sitEspecial.equals(sitEspecial2));
+		assertEquals(true,sitEspecial4.equals(sitEspecial5));
+		assertEquals(true,sitEspecial.hashCode() == sitEspecial2.hashCode());
+		assertEquals(false,sitEspecial4.hashCode() == sitEspecial2.hashCode());
+	}
+
 	
 	@Test
 	void nao_deve_aceitar_status_diferentes() {

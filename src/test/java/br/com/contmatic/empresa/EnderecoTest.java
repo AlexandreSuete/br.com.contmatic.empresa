@@ -13,8 +13,18 @@ import org.junit.jupiter.api.Test;
 class EnderecoTest {
 
 	Endereco endereco = null;
+	
+	Endereco endereco2 = null;
 
+	Endereco endereco3 = null;
+	
+	Endereco endereco4 = null;
+	
+	Endereco endereco5 = null;
+	
 	Municipio municipio = new Municipio("SAO JOSE DOS CAMPOS", "SP");
+	
+	Municipio municipio2 = new Municipio("Rio de Janeiro", "RJ");
 
 	@BeforeAll
 	static void init() {
@@ -25,6 +35,10 @@ class EnderecoTest {
 	void initEach() {
 		endereco = new Endereco("R MAJOR VAZ", municipio, "VILA ADYANA", "12243670");
 		endereco.setUsuario("Alexandre");
+		endereco2 = new Endereco("R MAJOR VAZ", municipio, "VILA ADYANA", "12243670");
+		endereco3 = new Endereco("Rua Padre Raposo", municipio2, "MOOCA", "03118000");
+		endereco4 = new Endereco(null);
+		endereco5 = new Endereco(null);
 	}
 
 	@AfterAll
@@ -94,6 +108,28 @@ class EnderecoTest {
 			endereco.setUsuario(null);
 		});
 	}
+	
+	@Test
+	void deve_aceitar_hashcode_valido() {
+		assertEquals(endereco.hashCode(), endereco2.hashCode());
+	}
+	
+	@Test
+	void nao_deve_aceitar_hashcode_diferente() {
+		assertEquals(false, endereco4.hashCode() == endereco.hashCode());
+	}
+	
+	@Test
+	void teste_equals() {
+		assertEquals(true,endereco.equals(endereco));
+		assertEquals(false,endereco.equals(null));
+		assertEquals(false,endereco.equals(1));
+		assertEquals(false,endereco.equals(endereco3));
+		assertEquals(true,endereco.equals(endereco2));
+		assertEquals(false,endereco4.equals(endereco));
+		assertEquals(true,endereco4.equals(endereco5));
+	}
+
 
 	private void deve_aceitar_usuario_valido() {
 		assertEquals("Alexandre", endereco.getUsuario());
