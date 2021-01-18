@@ -24,6 +24,10 @@ public class Telefone {
 		this.setTelefone(telefone);
 	}
 
+	public Telefone(String numTelefone) {
+		this.numTelefone = numTelefone;
+	}
+
 	public int getDdi() {
 		return ddi;
 	}

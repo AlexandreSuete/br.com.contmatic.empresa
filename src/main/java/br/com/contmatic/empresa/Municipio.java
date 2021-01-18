@@ -20,6 +20,10 @@ public class Municipio {
 		this.setMunicipio(municipio);
 		this.setUf(uf);
 	}
+	
+	public Municipio(String cidade) {
+		this.cidade = cidade;
+	}
 
 	public String getMunicipio() {
 		return cidade;
@@ -103,7 +107,6 @@ public class Municipio {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
-		result = prime * result + ((uf == null) ? 0 : uf.hashCode());
 		return result;
 	}
 
@@ -120,11 +123,6 @@ public class Municipio {
 			if (other.cidade != null)
 				return false;
 		} else if (!cidade.equals(other.cidade))
-			return false;
-		if (uf == null) {
-			if (other.uf != null)
-				return false;
-		} else if (!uf.equals(other.uf))
 			return false;
 		return true;
 	}

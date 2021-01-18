@@ -24,6 +24,10 @@ public class Atividade {
 		this.setDescricao(descricao);
 	}
 
+	public Atividade(String codigo) {
+		this.codigo = codigo;
+	}
+
 	public String getCodAtividade() {
 		return codigo;
 	}
@@ -32,8 +36,6 @@ public class Atividade {
 		this.codigoDeAtividadeDaEmpresaNaoDeveSerNulo(codigo);
 		this.codigoDeAtividadeDeveConter7Digitos(codigo);
 		this.codigoDeAtividadeNaoDeveConterLetras(codigo);
-		this.codigoDeAtividadeNaoDeveConterEspacosEmBranco(codigo);
-
 		this.codigo = codigo;
 	}
 
@@ -94,11 +96,6 @@ public class Atividade {
 		}
 	}
 
-	private void codigoDeAtividadeNaoDeveConterEspacosEmBranco(String codigo) {
-		if (codigo.substring(CODIGO_INITI_LENGTH, CODIGO_ATIVIDADE).matches(" ")) {
-			throw new IllegalArgumentException("O Codigo de Atividade da Empresa não pode conter espaços em branco");
-		}
-	}
 
 	private void atividadeDaEmpresaNaoDeveSerNula(String descricao) {
 		if (descricao == null) {
@@ -129,7 +126,6 @@ public class Atividade {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 		return result;
 	}
 
@@ -146,11 +142,6 @@ public class Atividade {
 			if (other.codigo != null)
 				return false;
 		} else if (!codigo.equals(other.codigo))
-			return false;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
 			return false;
 		return true;
 	}

@@ -13,6 +13,14 @@ import org.junit.jupiter.api.Test;
  class TelefoneTest {
 
 	Telefone telefone = null;
+	
+	Telefone telefone2 = null;
+	
+	Telefone telefone3 = null;
+	
+	Telefone telefone4 = null;
+	
+	Telefone telefone5 = null;
 
 	@BeforeAll
 	public static void init() {
@@ -22,6 +30,10 @@ import org.junit.jupiter.api.Test;
 	@BeforeEach
 	public void initEach() {
 		telefone = new Telefone(55, 11, "29426700");
+		telefone2 = new Telefone(55, 11, "29426700");
+		telefone3 = new Telefone(55, 11, "29426701");
+		telefone4 = new Telefone(null);
+		telefone5 = new Telefone(null);
 		telefone.setUsuario("Alexandre");
 	}
 
@@ -85,6 +97,19 @@ import org.junit.jupiter.api.Test;
 		assertThrows(IllegalArgumentException.class, () -> {
 			telefone.setDdd(100);
 		});
+	}
+	
+	@Test
+	void teste_equals_hashcode() {
+		assertEquals(true,telefone.equals(telefone));
+		assertEquals(false,telefone.equals(null));
+		assertEquals(false,telefone.equals(1));
+		assertEquals(false,telefone.equals(telefone3));
+		assertEquals(false,telefone4.equals(telefone));
+		assertEquals(true,telefone.equals(telefone2));
+		assertEquals(true,telefone4.equals(telefone5));
+		assertEquals(true,telefone.hashCode() == telefone2.hashCode());
+		assertEquals(false,telefone4.hashCode() == telefone2.hashCode());
 	}
 
 	private void deve_aceitar_data_de_alteracao_valida() {

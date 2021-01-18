@@ -11,6 +11,10 @@ public class SituacaoEspecial {
 		this.setData(data);
 	}
 
+	public SituacaoEspecial(String status) {
+		this.status = status;
+	}
+
 	private String status;
 
 	private Date data;
